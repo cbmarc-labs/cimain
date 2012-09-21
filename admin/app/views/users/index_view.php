@@ -47,9 +47,11 @@
 
 		$('#delete').live('click', function (event) {
 			event.preventDefault();
-			
-			$('input[name=ids]').val(gaiSelected);
-			$('#delete_form').submit();
+
+			if(confirm("<?=lang('are_you_sure')?>")) {
+				$('input[name=ids]').val(gaiSelected);
+				$('#delete_form').submit();
+			}
 		});
 
 		$('div.dataTables_filter input').focus();

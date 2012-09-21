@@ -23,9 +23,7 @@ class Users extends CI_Controller {
 	}
 	
 	public function index()
-	{
-		//$this->xmldb->create('users');
-		
+	{		
 		$this->table->set_heading('id', 'login', 'created', 'last_update');
 		$this->table->set_template(
 				array('table_open'=>'<table id="datatable">'));

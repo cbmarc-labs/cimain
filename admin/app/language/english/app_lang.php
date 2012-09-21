@@ -2,6 +2,7 @@
 
 // GENERAL
 $lang['general_error'] = 'Error';
+$lang['are_you_sure'] = 'Are you sure?';
 
 // NAV
 $lang['nav_users'] = 'Users';

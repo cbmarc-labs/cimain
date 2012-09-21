@@ -21,7 +21,8 @@ $login = array('name'=>'login', 'value'=>$user['login'],
 		<?php if($this->uri->segment(3)) : ?>
 			<?=form_button(array('name'=>'delete', 'value'=>'delete', 
 				'class'=>'buttons delete',	'type'=>'submit', 
-				'content'=>lang('form_delete')))?>
+				'content'=>lang('form_delete'),
+				'onclick'=>'return confirm(\''.lang('are_you_sure').'\')'))?>
 		<?php endif; ?>
 	</p>
 
