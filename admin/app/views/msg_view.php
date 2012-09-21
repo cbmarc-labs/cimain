@@ -12,7 +12,7 @@ if($value) : ?>
 <script type="text/javascript">
 	$("#<?=$type?>").css({ top: -$('#<?=$type?>').outerHeight(),
 		left:($(window).width() - $('#<?=$type?>').outerWidth())/2 })
-		.animate({ top: "10px" }, 250 );
+		.animate({ top: "-2px" }, 250 );
 </script>
     
 <?php endif; ?>

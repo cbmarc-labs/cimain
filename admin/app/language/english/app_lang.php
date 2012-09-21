@@ -41,6 +41,7 @@ $lang['datatable_sSearch'] = 'Search';
 $lang['user_form_login'] = 'Login';
 $lang['user_form_password'] = 'Password';
 $lang['user_form_confirm_password'] = 'Confirm Password';
+$lang['user_form_active'] = 'Active';
 
 // GENERAL FORM
 $lang['form_submit'] = 'Submit';

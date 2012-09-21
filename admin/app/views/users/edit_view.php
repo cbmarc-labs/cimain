@@ -4,6 +4,7 @@ $login = array('name'=>'login', 'value'=>$user['login'],
 $password = array('name'=>'password', 'type'=>'password', 'value'=>'');
 $confirm_password = array('name'=>'confirm_password', 'type'=>'password', 
 		'value'=>'');
+$active = array('name'=>'active', 'value'=>1, 'checked'=>$user['active']);
 ?>
 
 <?=form_open()?>
@@ -25,6 +26,11 @@ $confirm_password = array('name'=>'confirm_password', 'type'=>'password',
 		<?=form_label(lang('user_form_confirm_password') . ':' . br() . 
 				form_input($confirm_password))?>
 		<?=form_error('confirm_password')?>
+	</p>
+	
+	<p>
+		<?=form_label(lang('user_form_active') . ':' . 
+				form_checkbox($active))?>
 	</p>
 	
 	<p>

@@ -24,7 +24,8 @@ class Users extends CI_Controller {
 	
 	public function index()
 	{		
-		$this->table->set_heading('id', 'login', 'created', 'last_update');
+		$this->table->set_heading(
+				'id', 'login', 'created', 'last_update', 'active');
 		$this->table->set_template(
 				array('table_open'=>'<table id="datatable">'));
 		
@@ -42,7 +43,10 @@ class Users extends CI_Controller {
 						$user['id'],
 						anchor('users/edit/'.$user['id'], $user['login']),
 						$user['created'], 
-						date('d-m-Y',strtotime($user['last_update'])));
+						date('d-m-Y',strtotime($user['last_update'])),
+						//form_checkbox(array('name'=>'active', 'value'=>1, 'checked'=>$user['active']))
+						form_checkbox(array('name'=>'active', 'value'=>1, 'checked'=>$user['active']))
+						);
 			}
 		}
 		
@@ -191,10 +195,28 @@ class Users extends CI_Controller {
 		redirect('users');
 	}
 	
+	public function update()
+	{
+		if($this->input->is_ajax_request() == TRUE)
+		{
+			$data['id'] = $this->input->post('id');
+			$data['active'] = $this->input->post('active');
+			
+			$error = array();
+			if(!$this->xml_db->save('users', $data))
+				$error = array('msg_type'=>'error_msg', 
+						'msg_value'=>$this->xml_db->get_error());
+			
+			header('Content-Type: application/json',true);
+			echo json_encode($error);
+		}
+	}
+	
 	private function _set_values()
 	{
 		$data['login'] = '';
 		$data['password'] = '';
+		$data['active'] = 1;
 		
 		$this->content_data['user'] = $data;
 	}
@@ -204,13 +226,9 @@ class Users extends CI_Controller {
 		$data['login'] = $this->input->post('login');
 		if($this->input->post('password'))
 			$data['password'] = md5($this->input->post('password'));
-		
+		$data['active'] = $this->input->post('active')?1:0;
+				
 		return $data;
-	}
-	
-	function _check_password()
-	{
-		return TRUE;
 	}
 	
 	private function _set_rules()

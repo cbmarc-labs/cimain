@@ -57,7 +57,7 @@
 	
 .toolbar{margin:5px 0;}
 	
-.info_msg, .success_msg, .warning_msg, .error_msg, .validation_msg{display:block;opacity:0.96;position:absolute;border:1px solid;padding:5px 50px;font-weigth:bold;}
+.info_msg, .success_msg, .warning_msg, .error_msg, .validation_msg{display:block;opacity:0.96;position:absolute;border:2px solid;padding:5px 50px;font-weigth:bold;border-bottom-left-radius:5px;border-bottom-right-radius:5px;}
 .info_msg{color:#00529B;background-color:#BDE5F8;}
 .success_msg{color:#4F8A10;background-color:#DFF2BF; }
 .warning_msg{color:#9F6000;background-color:#FEEFB3;}
@@ -134,12 +134,12 @@
 /* Hexadecimal entities for the icons */
 
 /*Forms*/
-.add:before {	content: "\271A"; color:rgb(57,75,221);}
-.edit:before { 	content: "\270E"; }
-.delete:before{	content: "\2718"; color:rgb(221,75,57);}
-.save:before{	content: "\2714"; color:#0f0;}
-.email:before{	content: "\2709";}
-.cross:before { content: "\2716"; }
+.add:before{content:"\271A";color:rgb(57,75,221);}
+.edit:before{content:"\270E";}
+.delete:before{content:"\2718"; color:rgb(221,75,57);}
+.save:before{content:"\2714";color:rgb(57,221,75);}
+.email:before{content:"\2709";}
+.cross:before{content:"\2716";}
 
 /* http://www.datatables.net/ */
 .dataTables_wrapper{margin:5px 0;}
