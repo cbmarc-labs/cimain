@@ -3,6 +3,7 @@
 // GENERAL
 $lang['general_error'] = 'Error';
 $lang['are_you_sure'] = 'Are you sure?';
+$lang['login_incorrect'] = 'Login incorrect';
 
 // NAV
 $lang['nav_users'] = 'Users';
@@ -13,11 +14,11 @@ $lang['toolbar_add'] = 'Add New Item';
 $lang['toolbar_delete'] = 'Delete selected items';
 
 // XMLDB
-$lang['xmldb_load_error'] = 'Failed to open file.';
-$lang['xmldb_save_error'] = 'Failed to save file.';
-$lang['xmldb_item_not_found'] = 'Item not found.';
-$lang['xmldb_item_saved'] = 'Item saved.';
-$lang['xmldb_item_deleted'] = 'Item/s deleted.';
+$lang['xml_db_load_error'] = 'Failed to open file.';
+$lang['xml_db_save_error'] = 'Failed to save file.';
+$lang['xml_db_item_not_found'] = 'Item not found.';
+$lang['xml_db_item_saved'] = 'Item saved.';
+$lang['xml_db_item_deleted'] = 'Item/s deleted.';
 
 // DATATABLE
 $lang['datatable_sInfo'] = 'Showing _START_ to _END_ of _TOTAL_ entries';
@@ -38,6 +39,8 @@ $lang['datatable_sSearch'] = 'Search';
 
 // USER FORM FIELDS
 $lang['user_form_login'] = 'Login';
+$lang['user_form_password'] = 'Password';
+$lang['user_form_confirm_password'] = 'Confirm Password';
 
 // GENERAL FORM
 $lang['form_submit'] = 'Submit';

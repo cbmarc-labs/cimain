@@ -20,8 +20,9 @@ class Auth_lib {
 		
 		$this->CI->load->config('auth');
 		$this->CI->load->library('session');
-		$this->CI->lang->load('auth');
 		$this->CI->load->helper('language');
+		
+		$this->CI->lang->load('auth');
 	}
 	
 	/**
@@ -32,23 +33,13 @@ class Auth_lib {
 	 * @param boolean $remember
 	 * @return boolean
 	 */
-	function login($login, $password, $remember)
+	function login($login = null, $password = null, $remember = null)
 	{
 		$this->CI->load->helper('cookie');
 		
-		if($login == $this->CI->config->item('login')) {
-			if($password == $this->CI->config->item('password')) {
-				$this->CI->session->set_userdata(array('logged_in'=>TRUE));
-				set_cookie(array('name'=>'auth','value'=>'auth','expire'=>31*24*60*60));
-				return TRUE;
-				
-			} else {
-				$this->set_error('auth_incorrect_password');
-			}
-			
-		} else {
-			$this->set_error('auth_incorrect_login');
-		}
+		$this->CI->session->set_userdata(array('logged_in'=>TRUE));
+		set_cookie(array('name'=>$this->CI->config->item('auth_cookie_name'),
+				'value'=>'auth','expire'=>31*24*60*60));
 		
 		return FALSE;
 	}

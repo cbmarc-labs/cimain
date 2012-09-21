@@ -7,13 +7,11 @@
 		color: #4F5155;
 	}
 
-	input[type=text], input[type=password] { 
-		font: 16px/1.6em arial;
-		width: 200px;
-		height: 25px;
-		padding: 3px;
-		margin: 5px;
-		border: 1px solid #ccc;
+	input[type=text], input[type=password] {
+		font-size:16px;
+		height:25px;
+		padding:3px;
+		border:1px solid #ccc;
 		border-radius:5px;
 	}
 	
@@ -50,20 +48,6 @@
 		box-shadow: 0 0 8px #D0D0D0;
 	}
 	
-	.msg {
-		color: #333;
-		margin: 10px 0;
-		padding: 10px;
-	}
-	
-	.error {
-		background: #fbe6f2;
-		border: 1px solid #d893a1;
-		color: rgb(221, 75, 57);
-		font-size: 14px;
-		font-weight: bolder;
-	}
-	
 	.error_field {
 		color: rgb(221, 75, 57);
 		font-size: 14px;
@@ -71,32 +55,15 @@
 		margin:10px;
 	}
 	
-	.info {
-		background: #e6fbf2;
-		border: 1px solid #93d8a1;
-	}
+.toolbar{margin:5px 0;}
 	
-	.message_box {
-		font:90% normal Helvetica, Arial, sans-serif;
-		width:100%;
-		height:10em;
-	}
-	
-	.correos_box {
-		font:90% normal Helvetica, Arial, sans-serif;
-		width:100%;
-		height:25em;
-	}
-	
-	.log_box {
-		font:90% normal Helvetica, Arial, sans-serif;
-		border:1px solid #aaa;
-		background: #eee;
-		color:#333;
-		width:100%;
-		height:25em;
-	}
-	
+.info_msg, .success_msg, .warning_msg, .error_msg, .validation_msg{display:block;opacity:0.96;position:absolute;border:1px solid;padding:5px 50px;font-weigth:bold;}
+.info_msg{color:#00529B;background-color:#BDE5F8;}
+.success_msg{color:#4F8A10;background-color:#DFF2BF; }
+.warning_msg{color:#9F6000;background-color:#FEEFB3;}
+.error_msg{color:#D8000C;background-color:#FFBABA;}
+.validation_msg{color:#D63301;background-color:#FFCCBA;}
+
 /* http://www.paulund.co.uk/css-buttons-with-icons-but-no-images */
 
 .buttons
@@ -167,7 +134,7 @@
 /* Hexadecimal entities for the icons */
 
 /*Forms*/
-.add:before {	content: "\271A"; color:#00f;}
+.add:before {	content: "\271A"; color:rgb(57,75,221);}
 .edit:before { 	content: "\270E"; }
 .delete:before{	content: "\2718"; color:rgb(221,75,57);}
 .save:before{	content: "\2714"; color:#0f0;}
@@ -175,13 +142,15 @@
 .cross:before { content: "\2716"; }
 
 /* http://www.datatables.net/ */
-.dataTables_wrapper{}
+.dataTables_wrapper{margin:5px 0;}
 .dataTables_wrapper:after{content:".";display:block;clear:both;visibility:hidden;line-height:0;height:0;}
 
 .dataTables_length{float:left;padding:6px;}
 .dataTables_filter{float:right;padding:6px;}
 
-.dataTable{clear:both;width:100%;margin:1em 0;border-collapse:separate;}
+.dataTables_top{border-top-left-radius:5px;border-top-right-radius:5px;background:#eee;height:45px;}
+
+.dataTable{clear:both;width:100%;border-collapse:separate;}
 .dataTable th{padding:8px 15px;border-bottom:1px solid #888;}
 .dataTable td{padding:8px 15px;border-bottom:1px solid #eee;}
 .dataTable thead th{cursor:pointer;text-align:left;}
@@ -192,14 +161,18 @@
 .dataTable tbody tr{border-bottom:1px solid #eee;}
 .dataTable tbody tr:hover{background:#eee;}
 .dataTable tbody tr.row_selected td {background-color:#9FAFD1;}
+.dataTable tbody tr td a {text-decoration:none;font-weight:bolder;color:#000;}
+.dataTable tbody tr td a:hover {text-decoration:underline;}
 
+.dataTables_bottom{background:#eee;height:30px;}
 .dataTables_info{padding:9px 6px 6px 6px;float:left;padding:6px;}
 .dataTables_paginate{float:right;text-align:right;padding:6px;}
 
 a.paginate_button,a.paginate_active{padding:2px 6px;cursor:pointer;}
 a.paginate_button:hover{color:#000;}
 a.paginate_active{font-weight:bolder;color:#000;}
-a.paginate_button_disabled{cursor:default;color:#eee;}
+a.paginate_button_disabled{cursor:default;color:#fff;}
+a.paginate_button_disabled:hover{color:#fff;}
 
 /* http://cssmenumaker.com/ */
 
@@ -208,7 +181,7 @@ a.paginate_button_disabled{cursor:default;color:#eee;}
 height:37px;
 display:block;
 padding:0;
-margin:20px auto; 
+margin:5px auto; 
 border:1px solid;
 border-radius:5px;
 }

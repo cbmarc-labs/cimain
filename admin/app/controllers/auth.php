@@ -10,7 +10,7 @@ class Auth extends CI_Controller {
 		parent::__construct();
 		
 		$this->load->helper(array('form', 'url', 'auth'));
-		$this->load->library('auth_lib');
+		$this->load->library(array('auth_lib', 'xml_db'));
 		
 		$this->heading['title'] = "User login";
 	}
@@ -51,12 +51,17 @@ class Auth extends CI_Controller {
 	{
 		list($login, $password, $remember) = explode(',', $params);
 		
-		if(!$this->auth_lib->login($login, $password, $remember)) {
+		$result = $this->xml_db->get('users', 
+				array('login'=>$login, 'password'=>md5($password)));
+
+		if(!$result) {			
 			$this->form_validation->set_message(
-					'_check_login', $this->auth_lib->get_error());
-			
+					'_check_login', lang('login_incorrect'));
+				
 			return FALSE;
 		}
+		
+		$this->auth_lib->login();
 		
 		return TRUE;
 	}

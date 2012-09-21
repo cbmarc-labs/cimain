@@ -1,17 +1,31 @@
 <?php 
 $login = array('name'=>'login', 'value'=>$user['login'],
-	'style'=>'width:320px;', 'autofocus'=>'autofocus');
+		'autofocus'=>'autofocus');
+$password = array('name'=>'password', 'type'=>'password', 'value'=>'');
+$confirm_password = array('name'=>'confirm_password', 'type'=>'password', 
+		'value'=>'');
 ?>
 
 <?=form_open()?>
 
 	<p>
-		<?=form_label(lang('user_form_login') . ':' . br() . 
+		<?=form_label(lang('user_form_login') . ':' . br() .
 				form_input($login))?>
+		<?=form_error('login')?>
 	</p>
 	
-	<?=validation_errors('<div class="error_field" 
-			onclick="this.style.display=\'none\'">', '</div>')?>
+	
+	<p>
+		<?=form_label(lang('user_form_password') . ':' . br() . 
+				form_input($password))?>
+		<?=form_error('password')?>
+	</p>
+	
+	<p>
+		<?=form_label(lang('user_form_confirm_password') . ':' . br() . 
+				form_input($confirm_password))?>
+		<?=form_error('confirm_password')?>
+	</p>
 	
 	<p>
 		<?=form_button(array('name'=>'submit', 'value'=>'submit', 

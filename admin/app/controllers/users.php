@@ -3,7 +3,7 @@
 class Users extends CI_Controller {
 	
 	private $header_data = array();
-	private $info_data = array();
+	private $msg_data = array();
 	private $content_data = array();
 	
 	public function __construct()
@@ -15,7 +15,7 @@ class Users extends CI_Controller {
 		if(!logged_in())
 			redirect('auth');
 		
-		$this->load->library(array('XmlDB', 'table', 'form_validation'));
+		$this->load->library(array('xml_db', 'table', 'form_validation'));
 		$this->load->helper('form');
 		
 		$this->header_data['title'] = "Application - Users";
@@ -28,11 +28,11 @@ class Users extends CI_Controller {
 		$this->table->set_template(
 				array('table_open'=>'<table id="datatable">'));
 		
-		$data = $this->xmldb->get('users');
+		$data = $this->xml_db->get('users');
 		
 		if($data === FALSE)
 		{
-			$this->info_data['error'] = $this->xmldb->get_error();
+			$this->_set_msg('error_msg', $this->xml_db->get_error());
 		}
 		else
 		{
@@ -59,6 +59,15 @@ class Users extends CI_Controller {
 		if($this->input->post('submit'))
 		{
 			$this->_set_rules();
+			
+			// EXTRA RULES FOR ADD
+			$this->form_validation->set_rules(
+					'password', lang('user_form_password'),
+					"required|trim|xss_clean|min_length[2]|max_length[25]|alpha_dash");
+			$this->form_validation->set_rules(
+					'confirm_password', lang('user_form_confirm_password'), 
+					'trim|required|xss_clean|matches[password]');
+			
 			$this->content_data['user'] = $this->_get_values();
 			
 			if($this->form_validation->run())
@@ -66,15 +75,15 @@ class Users extends CI_Controller {
 				$user = $this->_get_values();
 				$user['created'] = date(DATE_ISO8601);
 				$user['last_update'] = date(DATE_ISO8601);
-				
-				if($this->xmldb->save('users', $user))
+								
+				if($this->xml_db->save('users', $user))
 				{
 					$this->content_data['user'] = $this->_set_values();
-					$this->info_data['info'] = lang('xmldb_item_saved');
+					$this->_set_msg('success_msg', lang('xml_db_item_saved'));
 				}
 				else
 				{
-					$this->info_data['error'] = $this->xmldb->get_error();
+					$this->_set_msg('error_msg', $this->xml_db->get_error());
 				}
 			}
 			
@@ -91,41 +100,49 @@ class Users extends CI_Controller {
 		{
 			$this->_set_rules();
 			
+			// EXTRA RULES FOR EDIT
+			$this->form_validation->set_rules(
+					'password', lang('user_form_password'),
+					"trim|xss_clean|alpha_dash|matches[confirm_password]");
+			$this->form_validation->set_rules(
+					'confirm_password', lang('user_form_confirm_password'),
+					'trim|xss_clean|matches[password]');
+			
 			if($this->form_validation->run())
 			{
 				$user = $this->_get_values();
 				$user['id'] = $id;
 				$user['last_update'] = date(DATE_ISO8601);
-				
-				if($this->xmldb->save('users', $user))				
-					$this->info_data['info'] = lang('xmldb_item_saved');
+								
+				if($this->xml_db->save('users', $user))				
+					$this->_set_msg('success_msg', lang('xml_db_item_saved'));
 				else
-					$this->info_data['error'] = $this->xmldb->get_error();
+					$this->_set_msg('error_msg', $this->xml_db->get_error());
 			}
 			
 			$this->content_data['user'] = $this->_get_values();
 		}
 		elseif($this->input->post('delete'))
 		{
-			if($this->xmldb->delete('users', $id))
+			if($this->xml_db->delete('users', $id))
 			{
-				$this->session->set_flashdata('info', 
-						lang('xmldb_item_deleted'));
+				$this->_set_flashdata('success_msg', 
+						lang('xml_db_item_deleted'));
 				redirect('users');
 			}
 			
 			// repopulate fields and show error
 			$this->content_data['user'] = $this->_get_values();
-			$this->info_data['error'] = $this->xmldb->get_error();
+			$this->_set_msg('error_msg', $this->xml_db->get_error());
 		}
 		else
 		{
-			$this->content_data['user'] = $this->xmldb->get('users', $id);
+			$this->content_data['user'] = $this->xml_db->get('users', $id);
 			
 			if($this->content_data['user'] == null)
 			{
-				$this->session->set_flashdata('info', 
-						$this->xmldb->get_error());
+				$this->_set_flashdata('warning_msg', 
+						$this->xml_db->get_error());
 				redirect('users');
 			}
 		}
@@ -149,26 +166,26 @@ class Users extends CI_Controller {
 												
 				foreach($values as $id)
 				{
-					if($this->xmldb->delete('users', $id))
+					if($this->xml_db->delete('users', $id))
 						$it ++;
 				}
 				
 				if($it == count($values))
-					$this->session->set_flashdata('info',
-						lang('xmldb_item_deleted'));
+					$this->_set_flashdata('success_msg', 
+							lang('xml_db_item_deleted'));
 				else 
-					$this->session->set_flashdata('error',
+					$this->_set_flashdata('warning_msg',
 							$it . '/' . count($values) . ' ' .
-							lang('xmldb_item_deleted'));
+							lang('xml_db_item_deleted'));
 			}
 			else
 			{
-				$this->session->set_flashdata('error', lang('general_error'));
+				$this->_set_flashdata('error_msg', lang('general_error'));
 			}
 		}
 		else 
 		{
-			$this->session->set_flashdata('error', lang('general_error'));
+			$this->_set_flashdata('error_msg', lang('general_error'));
 		}
 		
 		redirect('users');
@@ -177,6 +194,7 @@ class Users extends CI_Controller {
 	private function _set_values()
 	{
 		$data['login'] = '';
+		$data['password'] = '';
 		
 		$this->content_data['user'] = $data;
 	}
@@ -184,22 +202,44 @@ class Users extends CI_Controller {
 	private function _get_values()
 	{
 		$data['login'] = $this->input->post('login');
+		if($this->input->post('password'))
+			$data['password'] = md5($this->input->post('password'));
 		
 		return $data;
 	}
 	
+	function _check_password()
+	{
+		return TRUE;
+	}
+	
 	private function _set_rules()
 	{
+		$this->form_validation->set_error_delimiters(
+				'<div class="error_field">', '</div>');
+		
 		$this->form_validation->set_rules(
 				'login', lang('user_form_login'),
-				"trim|required|xss_clean|min_length[2]|max_length[25]");
+				"trim|required|xss_clean|min_length[2]|max_length[25]|alpha_dash");
+	}
+	
+	private function _set_msg($type, $value)
+	{
+		$this->msg_data['msg_type'] = $type;
+		$this->msg_data['msg_value'] = $value;
+	}
+	
+	private function _set_flashdata($type, $value)
+	{
+		$this->session->set_flashdata('msg_type', $type);
+		$this->session->set_flashdata('msg_value', $value);
 	}
 	
 	private function _load_view($view)
 	{
 		$this->load->view('header_view', $this->header_data);
 		$this->load->view('nav_view');
-		$this->load->view('info_view', $this->info_data);
+		$this->load->view('msg_view', $this->msg_data);
 		$this->load->view($view, $this->content_data);
 		$this->load->view('footer_view');		
 	}

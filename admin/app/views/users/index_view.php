@@ -4,6 +4,8 @@
 	$(document).ready(function() {
 		/* Init DataTables */
 		var oTable = $('#datatable').dataTable({
+			"sDom": '<"dataTables_top"lf>t<"dataTables_bottom"ip>',
+			"bStateSave": true,
 			"sPaginationType": "full_numbers",
 			"aaSorting": [[ 1, "asc" ]],
 			"oLanguage": {
@@ -60,8 +62,12 @@
 </script>
 
 <?=form_open('users/delete', array('id'=>'delete_form'), array('ids'=>''))?>
+<?=form_close()?>
 
-<p><?=anchor('users/add', lang('toolbar_add'), 'class="buttons add"')?>
-<?=anchor('', lang('toolbar_delete'), 'id="delete" class="buttons delete"')?></p>
+<div class="toolbar">
+<?=anchor('users/add', lang('toolbar_add'), 'class="buttons add"')?>
+<?=anchor('', lang('toolbar_delete'), 'id="delete" class="buttons delete"')?>
+</div>
+
 <?=$table?>
 

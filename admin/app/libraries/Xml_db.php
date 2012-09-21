@@ -8,7 +8,7 @@
  * @author marc
  *
  */
-class XmlDB {
+class Xml_db {
 	
 	private $CI;
 	private $_error;
@@ -21,19 +21,36 @@ class XmlDB {
 		$this->CI->load->helper('language');
 	}
 	
-	function get($filename, $id = NULL)
+	function get($filename, $var = NULL)
 	{
 		$arr = FALSE;
 		$xml = $this->load_xml_file($filename);
 		
 		if($xml !== FALSE) {
-			if($id == NULL) {
+			
+			// return all records
+			if($var == NULL) {
+				$arr = array();
 				foreach($xml->item as $node)
 					$arr[] = get_object_vars($node);
 			
+			// return by query key=>value
+			} elseif(is_array($var)) {
+				foreach($xml->item as $node) {
+					$match = TRUE;
+					foreach($var as $key=>$value) {						
+						if(strcasecmp($node->$key,$value))
+							$match = FALSE;
+					}
+					
+					if($match === TRUE)
+						$arr[] = get_object_vars($node);
+				}
+				
+			// return by id
 			} else {
 				foreach($xml->item as $node) {
-					if($node->id == $id) {
+					if($node->id == $var) {
 						$arr = get_object_vars($node);
 						
 						break;
@@ -41,7 +58,7 @@ class XmlDB {
 				}
 				
 				if($arr === FALSE)
-					$this->set_error('xmldb_item_not_found');
+					$this->set_error('xml_db_item_not_found');
 			}
 		}
 		
@@ -85,7 +102,7 @@ class XmlDB {
 				
 				$xml = $this->save_xml_file($filename, $xml);
 			} else {
-				$this->set_error('xmldb_item_not_found');
+				$this->set_error('xml_db_item_not_found');
 				$xml = FALSE;
 			}
 		}
@@ -127,7 +144,7 @@ class XmlDB {
 				
 				$xml = $this->save_xml_file($filename, $xml);
 			} else {
-				$this->set_error('xmldb_item_not_found');
+				$this->set_error('xml_db_item_not_found');
 				$xml = FALSE;
 			}
 		}
@@ -150,7 +167,7 @@ class XmlDB {
 		$result = simplexml_load_file($file);
 		
 		if($result === FALSE)
-			$this->set_error('xmldb_load_error');
+			$this->set_error('xml_db_load_error');
 		
 		return $result;
 	}
@@ -161,7 +178,7 @@ class XmlDB {
 		$result = $xml->asXML($file);
 		
 		if($result === FALSE)
-			$this->set_error('xmldb_save_error');
+			$this->set_error('xml_db_save_error');
 		
 		return $result;
 	}
