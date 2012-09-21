@@ -169,7 +169,7 @@
 /*Forms*/
 .add:before {	content: "\271A"; color:#00f;}
 .edit:before { 	content: "\270E"; }
-.delete:before{	content: "\2718"; color:#f00;}
+.delete:before{	content: "\2718"; color:rgb(221,75,57);}
 .save:before{	content: "\2714"; color:#0f0;}
 .email:before{	content: "\2709";}
 .cross:before { content: "\2716"; }
@@ -191,6 +191,7 @@
 .dataTable thead th.sorting_desc:after{border-bottom:none;border-left:4px solid transparent;border-right:4px solid transparent;border-top:4px solid #000;visibility:visible;}
 .dataTable tbody tr{border-bottom:1px solid #eee;}
 .dataTable tbody tr:hover{background:#eee;}
+.dataTable tbody tr.row_selected td {background-color:#9FAFD1;}
 
 .dataTables_info{padding:9px 6px 6px 6px;float:left;padding:6px;}
 .dataTables_paginate{float:right;text-align:right;padding:6px;}

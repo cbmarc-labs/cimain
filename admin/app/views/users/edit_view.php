@@ -1,6 +1,5 @@
 <?php 
-$login = array('name'=>'login', 
-	'value'=>set_value('login', isset($user)?$user['login']:''),
+$login = array('name'=>'login', 'value'=>$user['login'],
 	'style'=>'width:320px;', 'autofocus'=>'autofocus');
 ?>
 

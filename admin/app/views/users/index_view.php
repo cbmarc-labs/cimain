@@ -1,4 +1,6 @@
 <script type="text/javascript">
+	var gaiSelected =  [];
+
 	$(document).ready(function() {
 		/* Init DataTables */
 		var oTable = $('#datatable').dataTable({
@@ -21,16 +23,43 @@
 		oTable.fnSetColumnVis(0, false);
 
 		/* Add events */
-		$('#datatable tbody tr').live('click', function () {
-	        var aPos = oTable.fnGetPosition( this );
-	        var aData = oTable.fnGetData(aPos)[0];
-	        var newurl = "<?=site_url('users/edit/')?>/"+aData;
+		$('#datatable tbody tr').live('click', function (event) {
+			if(event.target.nodeName == "A")
+				return;
+				
+	        var aData = oTable.fnGetData( this );
+			var iId = aData[0];
 
-	        window.location = newurl; // redirect
+			if ( jQuery.inArray(iId, gaiSelected) == -1 )
+				gaiSelected[gaiSelected.length++] = iId;
+			else
+				gaiSelected = jQuery.grep(gaiSelected, function(value) {
+					return value != iId;
+				});
+	        
+			$(this).toggleClass('row_selected');
+
+			if(gaiSelected.length>0)
+				$('#delete').show();
+			else
+				$('#delete').hide();
 		});
 
-		$('div.dataTables_filter input').focus()
+		$('#delete').live('click', function (event) {
+			event.preventDefault();
+			
+			$('input[name=ids]').val(gaiSelected);
+			$('#delete_form').submit();
+		});
+
+		$('div.dataTables_filter input').focus();
+		$('#delete').hide();
 	});
 </script>
-<p><?=anchor('users/edit', 'Add New Item', 'class="buttons add"')?></p>
+
+<?=form_open('users/delete', array('id'=>'delete_form'), array('ids'=>''))?>
+
+<p><?=anchor('users/add', lang('toolbar_add'), 'class="buttons add"')?>
+<?=anchor('', lang('toolbar_delete'), 'id="delete" class="buttons delete"')?></p>
 <?=$table?>
+

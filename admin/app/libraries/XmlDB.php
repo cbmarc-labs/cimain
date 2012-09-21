@@ -55,8 +55,7 @@ class XmlDB {
 		if($xml !== FALSE) {
 			$newItem = $xml->addChild("item");
 			
-			if(!$data['id'])
-				$data['id'] = uniqid();
+			$data['id'] = uniqid();
 		
 			foreach($data as $key=>$value)
 				$newItem->addChild($key, $value);
@@ -98,7 +97,7 @@ class XmlDB {
 	{	
 		$result = TRUE;
 		
-		if($data['id']) {
+		if(isset($data['id'])) {
 			$result = $this->update($filename, $data);
 			
 		} else {
