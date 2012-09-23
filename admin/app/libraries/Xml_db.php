@@ -153,18 +153,17 @@ class Xml_db {
 	}
 	
 	function create($filename)
-	{
-		$file = $this->get_file($filename);
-		
+	{		
 		$xmlstr = '<?xml version="1.0"?><data></data>';
 		$xml = new SimpleXMLElement($xmlstr);
-		$xml->asXML($file);
+		
+		return $this->save_xml_file($filename, $xml);
 	}
 	
 	function load_xml_file($filename)
 	{
 		$file = $this->get_file($filename);
-		$result = simplexml_load_file($file);
+		$result = @simplexml_load_file($file);
 		
 		if($result === FALSE)
 			$this->set_error('xml_db_load_error');

@@ -3,7 +3,6 @@
 class Users extends CI_Controller {
 	
 	private $header_data = array();
-	private $msg_data = array();
 	private $content_data = array();
 	
 	public function __construct()
@@ -15,25 +14,24 @@ class Users extends CI_Controller {
 		if(!logged_in())
 			redirect('auth');
 		
-		$this->load->library(array('xml_db', 'table', 'form_validation'));
-		$this->load->helper('form');
+		$this->load->library(array('xml_db', 'table', 'form_validation', 'message'));
+		$this->load->helper(array('form', 'message'));
 		
 		$this->header_data['title'] = "Application - Users";
-		
 	}
 	
 	public function index()
-	{		
+	{
 		$this->table->set_heading(
 				'id', 'login', 'created', 'last_update', 'active');
 		$this->table->set_template(
-				array('table_open'=>'<table id="datatable">'));
+				array('table_open'=>'<table id="datatable_users">'));
 		
 		$data = $this->xml_db->get('users');
 		
 		if($data === FALSE)
 		{
-			$this->_set_msg('error_msg', $this->xml_db->get_error());
+			set_error($this->xml_db->get_error());
 		}
 		else
 		{
@@ -44,8 +42,8 @@ class Users extends CI_Controller {
 						anchor('users/edit/'.$user['id'], $user['login']),
 						$user['created'], 
 						date('d-m-Y',strtotime($user['last_update'])),
-						//form_checkbox(array('name'=>'active', 'value'=>1, 'checked'=>$user['active']))
-						form_checkbox(array('name'=>'active', 'value'=>1, 'checked'=>$user['active']))
+						form_checkbox(array('name'=>'active', 'value'=>1, 
+								'checked'=>$user['active']))
 						);
 			}
 		}
@@ -58,6 +56,7 @@ class Users extends CI_Controller {
 	
 	public function add()
 	{
+		$this->content_data['section_title'] = lang('user_section_title_add');
 		$this->_set_values();
 		
 		if($this->input->post('submit'))
@@ -82,12 +81,12 @@ class Users extends CI_Controller {
 								
 				if($this->xml_db->save('users', $user))
 				{
-					$this->content_data['user'] = $this->_set_values();
-					$this->_set_msg('success_msg', lang('xml_db_item_saved'));
+					$this->_set_values();
+					set_success(lang('xml_db_item_saved'));
 				}
 				else
 				{
-					$this->_set_msg('error_msg', $this->xml_db->get_error());
+					set_error($this->xml_db->get_error());
 				}
 			}
 			
@@ -97,7 +96,8 @@ class Users extends CI_Controller {
 	}
 	
 	public function edit()
-	{		
+	{
+		$this->content_data['section_title'] = lang('user_section_title_edit');
 		$id = $this->uri->segment(3);
 		
 		if($this->input->post('submit'))
@@ -119,9 +119,9 @@ class Users extends CI_Controller {
 				$user['last_update'] = date(DATE_ISO8601);
 								
 				if($this->xml_db->save('users', $user))				
-					$this->_set_msg('success_msg', lang('xml_db_item_saved'));
+					set_success(lang('xml_db_item_saved'));
 				else
-					$this->_set_msg('error_msg', $this->xml_db->get_error());
+					set_error($this->xml_db->get_error());
 			}
 			
 			$this->content_data['user'] = $this->_get_values();
@@ -130,14 +130,13 @@ class Users extends CI_Controller {
 		{
 			if($this->xml_db->delete('users', $id))
 			{
-				$this->_set_flashdata('success_msg', 
-						lang('xml_db_item_deleted'));
+				set_success(lang('xml_db_item_deleted'), TRUE);
 				redirect('users');
 			}
 			
 			// repopulate fields and show error
 			$this->content_data['user'] = $this->_get_values();
-			$this->_set_msg('error_msg', $this->xml_db->get_error());
+			set_error($this->xml_db->get_error());
 		}
 		else
 		{
@@ -145,8 +144,7 @@ class Users extends CI_Controller {
 			
 			if($this->content_data['user'] == null)
 			{
-				$this->_set_flashdata('warning_msg', 
-						$this->xml_db->get_error());
+				set_warning($this->xml_db->get_error(), TRUE);
 				redirect('users');
 			}
 		}
@@ -175,21 +173,19 @@ class Users extends CI_Controller {
 				}
 				
 				if($it == count($values))
-					$this->_set_flashdata('success_msg', 
-							lang('xml_db_item_deleted'));
+					set_success(lang('xml_db_item_deleted'), TRUE);
 				else 
-					$this->_set_flashdata('warning_msg',
-							$it . '/' . count($values) . ' ' .
-							lang('xml_db_item_deleted'));
+					set_warning($it . '/' . count($values) . ' ' .
+							lang('xml_db_item_deleted'), TRUE);
 			}
 			else
 			{
-				$this->_set_flashdata('error_msg', lang('general_error'));
+				set_error(lang('general_error'), TRUE);
 			}
 		}
 		else 
 		{
-			$this->_set_flashdata('error_msg', lang('general_error'));
+			set_error(lang('general_error'), TRUE);
 		}
 		
 		redirect('users');
@@ -204,7 +200,7 @@ class Users extends CI_Controller {
 			
 			$error = array();
 			if(!$this->xml_db->save('users', $data))
-				$error = array('msg_type'=>'error_msg', 
+				$error = array('msg_type'=>'error', 
 						'msg_value'=>$this->xml_db->get_error());
 			
 			header('Content-Type: application/json',true);
@@ -234,30 +230,17 @@ class Users extends CI_Controller {
 	private function _set_rules()
 	{
 		$this->form_validation->set_error_delimiters(
-				'<div class="error_field">', '</div>');
+				'<span class="error_field">(', ')</span>');
 		
 		$this->form_validation->set_rules(
 				'login', lang('user_form_login'),
 				"trim|required|xss_clean|min_length[2]|max_length[25]|alpha_dash");
 	}
 	
-	private function _set_msg($type, $value)
-	{
-		$this->msg_data['msg_type'] = $type;
-		$this->msg_data['msg_value'] = $value;
-	}
-	
-	private function _set_flashdata($type, $value)
-	{
-		$this->session->set_flashdata('msg_type', $type);
-		$this->session->set_flashdata('msg_value', $value);
-	}
-	
 	private function _load_view($view)
 	{
 		$this->load->view('header_view', $this->header_data);
 		$this->load->view('nav_view');
-		$this->load->view('msg_view', $this->msg_data);
 		$this->load->view($view, $this->content_data);
 		$this->load->view('footer_view');		
 	}

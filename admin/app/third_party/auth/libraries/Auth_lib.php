@@ -11,7 +11,6 @@
 class Auth_lib {
 	
 	private $CI;
-	private $_error;
 
 	function __construct()
 	{
@@ -33,13 +32,28 @@ class Auth_lib {
 	 * @param boolean $remember
 	 * @return boolean
 	 */
-	function login($login = null, $password = null, $remember = null)
+	function login($login = null, $remember = null)
 	{
 		$this->CI->load->helper('cookie');
 		
-		$this->CI->session->set_userdata(array('logged_in'=>TRUE));
-		set_cookie(array('name'=>$this->CI->config->item('auth_cookie_name'),
-				'value'=>'auth','expire'=>31*24*60*60));
+		if(!$this->logged_in())
+		{
+			$this->CI->session->set_userdata(
+					array(
+							'logged_in'=>TRUE,
+							'login'=>$login
+					)
+			);
+			
+			if($remember)
+			{
+				set_cookie(array(
+						'name'=>$this->CI->config->item('auth_cookie_name'),
+						'value'=>'auth','expire'=>31*24*60*60));
+			}
+			
+			return TRUE;
+		}
 		
 		return FALSE;
 	}
@@ -55,8 +69,13 @@ class Auth_lib {
 		
 		delete_cookie('auth');
 		
-		$this->CI->session->set_userdata(array('logged_in'=>''));
+		$this->CI->session->set_userdata(array('logged_in'=>'', 'login'=>''));
 		$this->CI->session->sess_destroy();
+	}
+	
+	function get_login()
+	{
+		return $this->CI->session->userdata('login');
 	}
 	
 	/**
@@ -67,21 +86,6 @@ class Auth_lib {
 	function logged_in()
 	{
 		return $this->CI->session->userdata('logged_in');
-	}
-	
-	function set_error($error)
-	{
-		$this->_error = lang($error);
-	}
-	
-	/**
-	 * Get error messages
-	 * 
-	 * @return	string
-	 */
-	function get_error()
-	{
-		return $this->_error;
 	}
 
 }

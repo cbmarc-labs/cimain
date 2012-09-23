@@ -2,17 +2,17 @@
 
 class Auth extends CI_Controller {
 	
-	private $heading = array();
-	private $data = array();
+	private $header_data = array();
+	private $content_data = array();
 	
 	public function __construct()
 	{
 		parent::__construct();
 		
-		$this->load->helper(array('form', 'url', 'auth'));
+		$this->load->helper(array('form', 'url', 'message'));
 		$this->load->library(array('auth_lib', 'xml_db'));
 		
-		$this->heading['title'] = "User login";
+		$this->header_data['title'] = "User login";
 	}
 	
 	public function index()
@@ -54,27 +54,35 @@ class Auth extends CI_Controller {
 		$result = $this->xml_db->get('users', 
 				array('login'=>$login, 'password'=>md5($password)));
 
-		if(!$result) {			
-			$this->form_validation->set_message(
-					'_check_login', lang('login_incorrect'));
+		if(!$result) {
+			$error = $this->xml_db->get_error();
+			
+			if(!$error)
+				$error = lang('auth_incorrect');
+				
+			$this->form_validation->set_message('_check_login', $error);
+			
+			set_error($error);
 				
 			return FALSE;
 		}
 		
-		$this->auth_lib->login();
+		$this->auth_lib->login($login);
+		set_success(lang('auth_success'));
 		
 		return TRUE;
 	}
 	
 	public function logout() {
+		set_success(lang('auth_logout'));
 		$this->auth_lib->logout();
 		
 		redirect('auth/login');
 	}
 	
 	private function _load_view($view) {
-		$this->load->view('auth/header_view', $this->heading);
-		$this->load->view($view, $this->data);
+		$this->load->view('auth/header_view', $this->header_data);
+		$this->load->view($view, $this->content_data);
 		$this->load->view('auth/footer_view');		
 	}
 	

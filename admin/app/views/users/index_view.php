@@ -1,30 +1,10 @@
 <script type="text/javascript">
-	var gaiSelected =  [];
-
 	$(document).ready(function() {
 		/* Init DataTables */
-		var oTable = $('#datatable').dataTable({
-			"sDom": '<"dataTables_top"lf>t<"dataTables_bottom"ip>',
-			"bStateSave": true,
-			"sPaginationType": "full_numbers",
-			"aaSorting": [[ 1, "asc" ]],
-			"oLanguage": {
-				"sInfo": '<?=lang('datatable_sInfo')?>',
-					"oPaginate": {
-						"sFirst": '<?=lang('datatable_sFirst')?>',
-						"sPrevious": '<?=lang('datatable_sPrevious')?>',
-						"sNext": '<?=lang('datatable_sNext')?>',
-						"sLast": '<?=lang('datatable_sLast')?>'
-			    },
-			    "sEmptyTable": '<?=lang('datatable_sEmptyTable')?>',
-				"sLengthMenu": '<?=lang('datatable_sLengthMenu')?>',
-				"sSearch": '<?=lang('datatable_sSearch')?>'
-			},
-			"aoColumnDefs": [ { "bVisible": false, "aTargets": [ 0 ] }]
-		});
-
+		var oTable = $('#datatable_users').dataTableInit().dataTableClick();
+		
 		/* Add events */
-		$('#datatable tbody tr').live('click', function (event) {
+		oTable.on('click', 'tbody tr', function(event){
 	        var aData = oTable.fnGetData( this );
 			var iId = aData[0];
 			var $target = $(event.target);
@@ -33,48 +13,27 @@
 			if($target.is('input')) {
 				$.post('users/update', { id:iId, active:checked },
 					function(data) {
-						
-						if(!data.msg_value)
-							return;
-
-						$target.attr("checked", checked?false:true);
-						
-						if($("#msg").length == 0)
-							$('<div class="' + data.msg_type + '" id="msg">' 
-									+ data.msg_value + '</div>')
-								.appendTo('body');
-							
-						$("#msg").css({top: -$('#msg').outerHeight(), 
-								left:($(window).width() - $('#msg').outerWidth())/2})
-							.animate({ top: "-2px" }, 250 )
-							.click(function(){$(this).fadeOut(250,
-									function(){$(this).remove();})});
+						// error
+						if(data.msg_value) {
+							$target.attr("checked", checked?false:true);
+							jQuery.msg(data.msg_type, data.msg_value);
+						}
 					});
 			}
 
-			if(!$target.is('td'))
-				return;
-
-			if ( jQuery.inArray(iId, gaiSelected) == -1 )
-				gaiSelected[gaiSelected.length++] = iId;
-			else
-				gaiSelected = jQuery.grep(gaiSelected, function(value) {
-					return value != iId;
-				});
-	        
-			$(this).toggleClass('row_selected');
-
-			if(gaiSelected.length>0)
-				$('#toolbar_delete').show();
-			else
-				$('#toolbar_delete').hide();
+			if($target.is('td')) {
+				if(oTable.getSelected().length>0)
+					$('#toolbar_delete').show();
+				else
+					$('#toolbar_delete').hide();
+			}
 		});
 
-		$('#toolbar_delete').live('click', function (event) {
+		$('#toolbar_delete').on('click', function (event) {
 			event.preventDefault();
-
+			
 			if(confirm("<?=lang('are_you_sure')?>")) {
-				$('input[name=ids]').val(gaiSelected);
+				$('input[name=ids]').val(oTable.getSelected());
 				$('#delete_form').submit();
 			}
 		});
@@ -88,8 +47,8 @@
 <?=form_close()?>
 
 <div class="toolbar">
-<?=anchor('users/add', lang('toolbar_add'), 'class="buttons add"')?>
-<?=anchor('', lang('toolbar_delete'), 'id="toolbar_delete" class="buttons delete"')?>
+	<?=anchor('users/add', lang('toolbar_add_item'), 'class="formee-button add"')?>
+	<?=anchor('', lang('toolbar_delete_items'), 'id="toolbar_delete" class="formee-button delete danger"')?>
 </div>
 
 <?=$table?>
