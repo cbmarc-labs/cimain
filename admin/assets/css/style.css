@@ -1,0 +1,113 @@
+.message {
+	display:block;
+	opacity:0.96;
+	position:absolute;
+	border:2px solid;
+	padding:5px 50px;
+	font-weigth:bold;
+	border-bottom-left-radius:5px;
+	border-bottom-right-radius:5px;
+}
+.message:before {
+	margin: 0 0.5em 0 0;
+}
+
+.info-icon{color:#00529B;background-color:#BDE5F8;}
+.success-icon{color:#4F8A10;background-color:#DFF2BF;}
+.success-icon:before{content:"\2714";}
+.warning-icon{color:#9F6000;background-color:#FEEFB3;}
+.warning-icon:before{content:"\26A0";}
+.error-icon{color:#D8000C;background-color:#FFBABA;}
+.error-icon:before{content:"\2718";}
+
+/* multiselect field */
+a.multiSelect, a.multiSelect:link {
+	vertical-align: middle;
+	line-height: 1.1em;
+	width: 100%;
+	padding: 7px;
+	border-style: solid;
+	border-width: 1px;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	border-color: #C6C6C6 #DADADA #EAEAEA;
+	color:#555;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+	display:block;
+	text-decoration: none;
+	
+}
+
+a.multiSelect:visited, a.multiSelect:hover, a.multiSelect:active {
+	color: #333;
+	background: white none;
+	border-color: #659EC9 #70AEDD #A8CFEC;
+	outline: 0;
+}
+
+a.multiSelect:after{float:right;font-size:10px;content:"\25BC";color:#000;}
+
+.multiSelectOptions {
+	margin-top: -1px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	border: solid 1px #B2B2B2;
+	background: #FFF;
+}
+
+.multiSelectOptions LABEL {
+	margin:0;
+}
+
+.multiSelectOptions LABEL.checked {
+	background-color: #dce5f8;
+}
+
+.multiSelectOptions LABEL.hover {
+	background-color: #3399ff;
+	color: white;
+}
+
+.multiSelectOptions input[type="checkbox"] {
+	margin: 0 5px 0 0;
+	vertical-align:baseline;
+}
+
+/* http://www.paulund.co.uk/css-buttons-with-icons-but-no-images */
+
+.add-icon:before{content:"\271A";color:rgb(57,75,221);margin:0 10px 0 0;}
+.delete-icon:before{content:"\2718";color:#D8000C;margin:0 10px 0 0;}
+.save-icon:before{content:"\2714";color:#4F8A10;margin:0 10px 0 0;}
+
+/* http://www.datatables.net/ */
+.dataTables_wrapper{margin:5px 0;}
+.dataTables_wrapper:after{content:".";display:block;clear:both;visibility:hidden;line-height:0;height:0;}
+
+.dataTables_length{float:left;padding:6px;}
+.dataTables_length select{width:5em;}
+.dataTables_filter{float:right;padding:6px;}
+
+.dataTables_top{border-top-left-radius:5px;border-top-right-radius:5px;background:#eee;height:45px;}
+
+.dataTable thead th{cursor:pointer;text-align:left;}
+.dataTable thead th:after{content:"";float:right;margin-top:7px;border-width:0 4px 4px;border-style:solid;border-color:#000 transparent;visibility:hidden;}
+.dataTable thead th:hover:after{visibility:visible;}
+.dataTable thead th.sorting_asc:after,.dataTable thead th.sorting_asc:hover:after{visibility:visible;}
+.dataTable thead th.sorting_desc:after{border-bottom:none;border-left:4px solid transparent;border-right:4px solid transparent;border-top:4px solid #000;visibility:visible;}
+.dataTable tbody tr.row_selected td {background-color:#9FAFD1;}
+.dataTable tbody tr td a {text-decoration:none;font-weight:bolder;color:#000;}
+.dataTable tbody tr td a:hover {text-decoration:underline;}
+
+.dataTables_bottom{background:#eee;height:30px;}
+.dataTables_info{padding:9px 6px 6px 6px;float:left;padding:6px;}
+.dataTables_paginate{float:right;text-align:right;padding:6px;}
+
+a.paginate_button{padding:2px 6px;cursor:pointer;color:#000;}
+a.paginate_active{padding:2px 6px;cursor:default;color:#000;text-decoration:none;}
+a.paginate_button:hover{color:#000;}
+a.paginate_active{font-weight:bolder;color:#000;}
+a.paginate_button_disabled{display:none;}

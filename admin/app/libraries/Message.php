@@ -35,7 +35,8 @@ class Message {
 				'messages',
 				array(
 						"date"=>date(DATE_ISO8601), 
-						"login"=>$this->CI->auth_lib->get_login(), 
+						"login"=>$this->CI->auth_lib->get_login(),
+						"section"=>uri_string(),
 						"type"=>$this->type, 
 						"message"=>$this->message)
 				);

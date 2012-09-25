@@ -1,4 +1,5 @@
 <script type="text/javascript">
+<!--
 	$(document).ready(function() {
 		/* Init DataTables */
 		var oTable = $('#datatable_users').dataTableInit().dataTableClick();
@@ -11,13 +12,13 @@
 			var checked = $target.attr("checked")?1:0;
 			
 			if($target.is('input')) {
-				$.post('users/update', { id:iId, active:checked },
+				$.post('users/edit_ajax/'+iId, { active:checked },
 					function(data) {
 						// error
-						if(data.msg_value) {
+						if(data.error)
 							$target.attr("checked", checked?false:true);
-							jQuery.msg(data.msg_type, data.msg_value);
-						}
+
+						jQuery.msg(data.type, data.message);
 					});
 			}
 
@@ -41,14 +42,18 @@
 		$('div.dataTables_filter input').focus();
 		$('#toolbar_delete').hide();
 	});
+//-->
 </script>
 
 <?=form_open('users/delete', array('id'=>'delete_form'), array('ids'=>''))?>
 <?=form_close()?>
 
-<div class="toolbar">
-	<?=anchor('users/add', lang('toolbar_add_item'), 'class="formee-button add"')?>
-	<?=anchor('', lang('toolbar_delete_items'), 'id="toolbar_delete" class="formee-button delete danger"')?>
+<div class="nav">
+		<?=anchor('users/add', '<i class="icon-ok"></i> ' .
+			 lang('toolbar_add_item'), 'class="btn"')?>
+		<?=anchor('', '<i class="icon-remove icon-white"></i> ' . 
+			lang('toolbar_delete_items'), 
+			'id="toolbar_delete" class="btn btn-danger"')?>
 </div>
 
 <?=$table?>

@@ -21,6 +21,8 @@ $lang['toolbar_delete_all'] = 'Delete all items';
 
 // XMLDB
 $lang['xml_db_load_error'] = 'Failed to open file.';
+$lang['xml_db_update_error'] = 'Failed to update item.';
+$lang['xml_db_update_success'] = 'Item updated';
 $lang['xml_db_save_error'] = 'Failed to save file.';
 $lang['xml_db_item_not_found'] = 'Item not found.';
 $lang['xml_db_item_saved'] = 'Item saved.';
@@ -36,7 +38,25 @@ $lang['user_form_login'] = 'Login';
 $lang['user_form_password'] = 'Password';
 $lang['user_form_confirm_password'] = 'Confirm Password';
 $lang['user_form_active'] = 'Active';
+$lang['user_form_sex'] = 'Sex';
+$lang['user_form_sex_0'] = 'Select ...';
+$lang['user_form_sex_1'] = 'Woman';
+$lang['user_form_sex_2'] = 'Man';
+$lang['user_form_sex_3'] = 'Other';
+$lang['user_form_color'] = 'Favorite Color';
+$lang['user_form_color_0'] = 'Select ...';
+$lang['user_form_color_1'] = 'black';
+$lang['user_form_color_2'] = 'blue';
+$lang['user_form_color_3'] = 'brown';
+$lang['user_form_color_4'] = 'gray';
+$lang['user_form_color_5'] = 'green';
+$lang['user_form_color_6'] = 'orange';
+$lang['user_form_color_7'] = 'pink';
+$lang['user_form_color_8'] = 'red';
+$lang['user_form_color_9'] = 'white';
+$lang['user_form_color_10'] = 'yellow';
 
 // GENERAL FORM
+$lang['form_multiselect'] = 'options selected';
 $lang['form_submit'] = 'Submit';
 $lang['form_delete'] = 'Delete';

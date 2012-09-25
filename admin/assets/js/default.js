@@ -64,8 +64,8 @@ jQuery.extend( {
 	msg: function(type, message) {
 		
 		if($("#msg").length == 0) {
-			$('<div class="message ' + type + '" id="msg">' + message + '</div>')
-				.appendTo('body');
+			$('<div class="message ' + type + '-icon" id="msg">' 
+					+ message + '</div>').appendTo('body');
 		}
 		
 		$("#msg")

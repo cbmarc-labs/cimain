@@ -2,7 +2,6 @@
 
 class Auth extends CI_Controller {
 	
-	private $header_data = array();
 	private $content_data = array();
 	
 	public function __construct()
@@ -11,8 +10,6 @@ class Auth extends CI_Controller {
 		
 		$this->load->helper(array('form', 'url', 'message'));
 		$this->load->library(array('auth_lib', 'xml_db'));
-		
-		$this->header_data['title'] = "User login";
 	}
 	
 	public function index()
@@ -81,9 +78,9 @@ class Auth extends CI_Controller {
 	}
 	
 	private function _load_view($view) {
-		$this->load->view('auth/header_view', $this->header_data);
+		$this->load->view('header_view');
 		$this->load->view($view, $this->content_data);
-		$this->load->view('auth/footer_view');		
+		$this->load->view('footer_view');		
 	}
 	
 }

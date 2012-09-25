@@ -75,7 +75,9 @@ class Xml_db {
 			$data['id'] = uniqid();
 		
 			foreach($data as $key=>$value)
+			{
 				$newItem->addChild($key, $value);
+			}
 		
 			$xml = $this->save_xml_file($filename, $xml);
 		}
@@ -98,7 +100,9 @@ class Xml_db {
 			
 			if($found === TRUE) {
 				foreach($data as $key=>$value)
+				{
 					$node->$key = $value;
+				}
 				
 				$xml = $this->save_xml_file($filename, $xml);
 			} else {

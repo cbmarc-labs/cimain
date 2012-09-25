@@ -22,9 +22,9 @@ class Messages extends CI_Controller {
 	
 	public function index()
 	{
-		$this->table->set_heading('date', 'login', 'type', 'message');
+		$this->table->set_heading('date', 'login', 'section', 'type', 'message');
 		$this->table->set_template(
-				array('table_open'=>'<table id="datatable_messages">'));
+				array('table_open'=>'<table class="table table-condensed table-hover" id="datatable_messages">'));
 		
 		$data = $this->xml_db->get('messages');
 		
@@ -39,6 +39,7 @@ class Messages extends CI_Controller {
 				$this->table->add_row(
 						$message['date'],
 						$message['login'],
+						$message['section'],
 						$message['type'],
 						$message['message']
 						);
@@ -66,7 +67,6 @@ class Messages extends CI_Controller {
 	private function _load_view($view)
 	{
 		$this->load->view('header_view', $this->header_data);
-		$this->load->view('nav_view');
 		$this->load->view($view, $this->content_data);
 		$this->load->view('footer_view');		
 	}

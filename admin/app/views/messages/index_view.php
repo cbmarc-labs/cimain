@@ -10,8 +10,11 @@
 	});
 </script>
 
-<div class="toolbar">
-	<?=anchor('messages/delete', lang('toolbar_delete_all'), 'class="formee-button delete danger"')?>
+<div class="nav">
+	<?=anchor('messages/delete', '<i class="icon-remove icon-white"></i> ' .
+		lang('toolbar_delete_all'), 
+		array('class'=>'btn btn-danger',
+				'onclick'=>'return confirm(\''.lang('are_you_sure').'\')'))?>
 </div>
 
 <?=$table?>
