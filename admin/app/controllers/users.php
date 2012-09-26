@@ -1,13 +1,25 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/**
+ * Users Class
+ * 
+ * @author marc
+ *
+ */
 class Users extends CI_Controller {
 
-	private $header_data = array();
-	private $content_data = array();
+	var $content_data = array();
+	var $fields = array('login'=>'', 'password'=>'', 'active'=>1, 'sex'=>0, 
+			'color'=>array(), 'description'=>'');
 
+	/**
+	 * Constructor
+	 */
 	public function __construct()
 	{
 		parent::__construct();
+		
+		log_message('debug', "Users Class Initialized");
 
 		//$this->output->enable_profiler();
 
@@ -17,10 +29,15 @@ class Users extends CI_Controller {
 		$this->load->library(array('table', 'form_validation', 'message', 'session'));
 		$this->load->helper(array('form', 'message'));
 		$this->load->model('user_model');
-
-		$this->header_data['title'] = "Application - Users";
 	}
+	
+	// --------------------------------------------------------------------
 
+	/**
+	 * Index method
+	 * 
+	 * @access public
+	 */
 	public function index()
 	{
 		//$this->xml_db->create('users');
@@ -31,12 +48,7 @@ class Users extends CI_Controller {
 				array('table_open'=>'<table class="table table-condensed table-hover" id="datatable_users">'));
 
 		$data = $this->user_model->get_all();
-
-		if($data === FALSE)
-		{
-			set_error($this->user_model->get_error());
-		}
-		else
+		if($data !== FALSE)
 		{
 			foreach($data as $user)
 			{
@@ -50,23 +62,33 @@ class Users extends CI_Controller {
 				);
 			}
 		}
+		else
+		{
+			set_error($this->user_model->get_error());
+		}
 
 		$this->content_data['table'] = $this->table->generate();
-
 		$this->_load_view('users/index_view');
 
 	}
+	
+	// --------------------------------------------------------------------
 
+	/**
+	 * Add method
+	 *
+	 * @access public
+	 * @return void
+	 */
 	public function add()
 	{
 		$this->content_data['section'] = lang('user_section_title_add');
-		$this->_set_default_form_values();
-
+		
 		if($this->input->post('submit'))
 		{
 			$this->_set_form_rules();
 				
-			// EXTRA RULES FOR ADD
+			// extra rules
 			$this->form_validation->set_rules(
 					'password', lang('user_form_password'),
 					"required|trim|xss_clean|min_length[2]|max_length[25]|alpha_dash|matches[confirm_password]");
@@ -76,35 +98,40 @@ class Users extends CI_Controller {
 			
 			if($this->form_validation->run())
 			{
-				if($this->user_model->insert() === FALSE)
+				$data = $this->_get_post();				
+				if($this->user_model->insert($data) === TRUE)
 				{
-					$this->_set_form_values();
-					set_error($this->user_model->get_error());
+					set_success(lang('xml_db_item_saved'), TRUE);
+					redirect('users/add');
 				}
-				else
-				{
-					$this->_set_default_form_values();
-					set_success(lang('xml_db_item_saved'));
-				}
+								
+				set_error($this->user_model->get_error());
 			}
-			else
-			{
-				$this->_set_form_values();
-			}
-				
 		}
-
+		
+		$this->_set_form_values();
 		$this->_load_view('users/edit_view');
 	}
-
+	
+	// --------------------------------------------------------------------
+	
+	/**
+	 * Edit method
+	 *
+	 * @access	public
+	 * @return void
+	 */
 	public function edit()
 	{
 		$this->content_data['section'] = lang('user_section_title_edit');
 		$id = $this->uri->segment(3);
 		
+		if($id === FALSE)
+			redirect('users');
+		
 		if($this->input->post('delete'))
 		{
-			if($this->user_model->delete($id))
+			if($this->user_model->delete($id) === TRUE)
 			{
 				set_success(lang('xml_db_item_deleted'), TRUE);
 				redirect('users');
@@ -118,7 +145,7 @@ class Users extends CI_Controller {
 		{
 			$this->_set_form_rules();
 				
-			// EXTRA RULES FOR EDIT
+			// extra rules
 			$this->form_validation->set_rules(
 					'password', lang('user_form_password'),
 					"trim|xss_clean|alpha_dash|matches[confirm_password]");
@@ -128,14 +155,18 @@ class Users extends CI_Controller {
 			
 			if($this->form_validation->run())
 			{
-				if($this->user_model->update($id) === FALSE)
+				$data = $this->_get_post();
+				if(isset($data['password']))
+					if(empty($data['password']))
+						unset($data['password']);
+				
+				if($this->user_model->update($id, $data) === TRUE)
 				{
-					$error = $this->user_model->get_error();
-					set_error($error);
+					set_success(lang('xml_db_item_saved'));
 				}
 				else
 				{
-					set_success(lang('xml_db_item_saved'));
+					set_error($this->user_model->get_error());
 				}
 			}
 				
@@ -143,35 +174,42 @@ class Users extends CI_Controller {
 		}
 		else
 		{
-			$this->content_data['user'] = $this->user_model->get_by_id($id);
-			if($this->content_data['user'] === FALSE)
+			$data = $this->user_model->get_by_id($id);
+			if($data === FALSE)
 			{
 				set_warning($this->user_model->get_error(), TRUE);
 				redirect('users');
 			}
+			
+			$this->_set_form_values($data);
 		}
 
 		$this->_load_view('users/edit_view');
 	}
 	
+	// --------------------------------------------------------------------
+	
+	/**
+	 * edit_ajax method
+	 *
+	 * @access	public
+	 * @return array
+	 */	
 	public function edit_ajax()
 	{
 		$id = $this->uri->segment(3);
 		
 		if($this->input->is_ajax_request() && $this->input->post() && $id !== FALSE)
 		{
-			if($this->user_model->update($id) === FALSE)
+			if($this->user_model->update($id, $this->_get_post()) === FALSE)
 			{
-				$error = $this->user_model->get_error();
-				set_error($error);
-			
+				set_error($this->user_model->get_error());
 				$result = array('error'=>1, 'type'=>'error',
 						'message'=>$error);
 			}
 			else
 			{
 				set_success(lang('xml_db_item_saved'));
-					
 				$result = array('error'=>0, 'type'=>'success',
 						'message'=>lang('xml_db_update_success'));
 			}
@@ -180,7 +218,14 @@ class Users extends CI_Controller {
 			echo json_encode($result);
 		}
 	}
-
+	
+	// --------------------------------------------------------------------
+	
+	/**
+	 * delete method
+	 *
+	 * @access public
+	 */
 	public function delete()
 	{
 		if($this->input->post())
@@ -206,42 +251,55 @@ class Users extends CI_Controller {
 		}
 	}
 	
-	private function _set_default_form_values()
+	// --------------------------------------------------------------------
+	
+	/**
+	 * _get_post method
+	 *
+	 * @access private
+	 * @return array
+	 */
+	private function _get_post()
 	{
 		$data = array();
+		foreach($this->fields as $k=>$v)
+		{
+			if($this->input->post($k) !== FALSE)
+				$data[$k] = $this->input->post($k);
+		}
 		
-		$data['login'] = '';
-		$data['active'] = 1;
-		$data['sex'] = 0;
-		$data['color'] = array();
-		$data['description'] = '';
-		
-		$this->content_data['user'] = $data;
+		return $data;		
 	}
-
-	private function _set_form_values()
+	
+	// --------------------------------------------------------------------
+	
+	/**
+	 * _set_form_values method
+	 *
+	 * @access private
+	 * @param array
+	 */
+	private function _set_form_values($data = FALSE)
 	{
-		$data = array();
+		if($data === FALSE)
+		{
+			$data = $this->_get_post();
 		
-		if($this->input->post('login') !== FALSE)
-			$data['login'] = $this->input->post('login');
+			foreach($this->fields as $k=>$v)
+				if(!isset($data[$k]))
+					$data[$k] = $this->fields[$k];
+		}
 		
-		if($this->input->post('login') !== FALSE)
-			$data['active'] = $this->input->post('active');
-		
-		if($this->input->post('sex') !== FALSE)
-			$data['sex'] = $this->input->post('sex');
-		
-		$data['color'] = array();
-		if($this->input->post('color') !== FALSE)
-			$data['color'] = $this->input->post('color');
-		
-		if($this->input->post('description') !== FALSE)
-			$data['description'] = $this->input->post('description');
-		
-		$this->content_data['user'] = $data;
+		$this->content_data['field'] = $data;
 	}
-
+	
+	// --------------------------------------------------------------------
+	
+	/**
+	 * _set_form_rules method
+	 *
+	 * @access private
+	 */
 	private function _set_form_rules()
 	{
 		$this->form_validation->set_error_delimiters(' (', ')');
@@ -262,10 +320,17 @@ class Users extends CI_Controller {
 				'description', lang('user_form_description'),
 				"trim|xss_clean|max_length[200]");
 	}
-
+	
+	// --------------------------------------------------------------------
+	
+	/**
+	 * _load_view method
+	 *
+	 * @access private
+	 */
 	private function _load_view($view)
 	{
-		$this->load->view('header_view', $this->header_data);
+		$this->load->view('header_view');
 		$this->load->view($view, $this->content_data);
 		$this->load->view('footer_view');
 	}

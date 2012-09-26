@@ -8,18 +8,17 @@ class User_model extends CI_Model {
 	
 	function __construct()
 	{
-		// Call the Model constructor
 		parent::__construct();
 		
 		$this->load->library(array('xml_db'));
 	}
 	
-	function insert()
+	function insert($data)
 	{
-		$data = $this->_get_post();
+		$data['password'] = md5($data['password']);
 		
-		foreach($this->fields as $f)
-			if(!isset($data[$f])) $data[$f] = '';
+		if(is_array($data['color']))
+			$data['color'] = implode(',', $data['color']);
 		
 		$data['created'] = date(DATE_ISO8601);
 		$data['last_update'] = date(DATE_ISO8601);
@@ -27,10 +26,15 @@ class User_model extends CI_Model {
 		return $this->xml_db->insert($this->table, $data);
 	}
 	
-	function update($id)
+	function update($id, $data)
 	{
-		$data = $this->_get_post();
-				
+		if(isset($data['password']))
+			$data['password'] = md5($data['password']);
+		
+		if(isset($data['color']))
+			if(is_array($data['color']))
+				$data['color'] = implode(',', $data['color']);
+		
 		$data['id'] = $id;
 		$data['last_update'] = date(DATE_ISO8601);
 		
@@ -64,26 +68,6 @@ class User_model extends CI_Model {
 	function delete($id)
 	{
 		return $this->xml_db->delete($this->table, $id);
-	}
-	
-	private function _get_post()
-	{
-		$data = array();
-		
-		foreach($this->fields as $f)
-			if($this->input->post($f) !== FALSE)
-				$data[$f] = $this->input->post($f);
-		
-		if(isset($data['color']))
-			$data['color'] = implode(',', $data['color']);
-		
-		if(isset($data['password']))
-			if(empty($data['password']))
-				unset($data['password']);
-			else
-				$data['password'] = md5($data['password']);
-		
-		return $data;
 	}
 	
 	function get_error()
