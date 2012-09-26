@@ -12,7 +12,9 @@
 			var checked = $target.attr("checked")?1:0;
 			
 			if($target.is('input')) {
-				$.post('users/edit_ajax/'+iId, { active:checked },
+				$.post(
+					'<?=site_url()?>/users/edit_ajax/'+iId, 
+					{ active:checked },
 					function(data) {
 						// error
 						if(data.error)

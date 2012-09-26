@@ -3,6 +3,8 @@
 class User_model extends CI_Model {
 	
 	private $table = 'users';
+	private $fields = array('login', 'password', 'active', 'sex', 'color', 
+			'description');
 	
 	function __construct()
 	{
@@ -16,8 +18,8 @@ class User_model extends CI_Model {
 	{
 		$data = $this->_get_post();
 		
-		if(!isset($data['color'])) $data['color'] = '';
-		if(!isset($data['description'])) $data['description'] = '';
+		foreach($this->fields as $f)
+			if(!isset($data[$f])) $data[$f] = '';
 		
 		$data['created'] = date(DATE_ISO8601);
 		$data['last_update'] = date(DATE_ISO8601);
@@ -28,7 +30,7 @@ class User_model extends CI_Model {
 	function update($id)
 	{
 		$data = $this->_get_post();
-		
+				
 		$data['id'] = $id;
 		$data['last_update'] = date(DATE_ISO8601);
 		
@@ -68,23 +70,18 @@ class User_model extends CI_Model {
 	{
 		$data = array();
 		
-		if($this->input->post('login') !== FALSE)
-			$data['login'] = $this->input->post('login');
+		foreach($this->fields as $f)
+			if($this->input->post($f) !== FALSE)
+				$data[$f] = $this->input->post($f);
 		
-		if($this->input->post('password') !== FALSE)
-			$data['password'] = md5($this->input->post('password'));
+		if(isset($data['color']))
+			$data['color'] = implode(',', $data['color']);
 		
-		if($this->input->post('active') !== FALSE)
-			$data['active'] = $this->input->post('active');
-		
-		if($this->input->post('sex') !== FALSE)
-			$data['sex'] = $this->input->post('sex');
-		
-		if($this->input->post('color') !== FALSE)
-			$data['color'] = implode(',', $this->input->post('color'));
-		
-		if($this->input->post('description') !== FALSE)
-			$data['description'] = $this->input->post('description');
+		if(isset($data['password']))
+			if(empty($data['password']))
+				unset($data['password']);
+			else
+				$data['password'] = md5($data['password']);
 		
 		return $data;
 	}

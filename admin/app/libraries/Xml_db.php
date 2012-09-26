@@ -29,21 +29,27 @@ class Xml_db {
 		if($xml !== FALSE) {
 			
 			// return all records
-			if($var == NULL) {
+			if($var == NULL)
+			{
 				$arr = array();
 				foreach($xml->item as $node)
 					$arr[] = get_object_vars($node);
 			
 			// return by query key=>value
-			} elseif(is_array($var)) {
-				foreach($xml->item as $node) {
+			}
+			elseif(is_array($var))
+			{
+				foreach($xml->item as $node)
+				{
 					$match = TRUE;
-					foreach($var as $key=>$value) {
+					foreach($var as $key=>$value)
+					{
 						if(strcasecmp($node->$key,$value))
 							$match = FALSE;
 					}
 					
-					if($match === TRUE) {
+					if($match === TRUE)
+					{
 						$arr[] = get_object_vars($node);
 						break;
 					}
@@ -51,8 +57,10 @@ class Xml_db {
 				
 			// return by id
 			} else {
-				foreach($xml->item as $node) {
-					if($node->id == $var) {
+				foreach($xml->item as $node)
+				{
+					if($node->id == $var)
+					{
 						$arr = get_object_vars($node);
 						
 						break;
@@ -80,7 +88,9 @@ class Xml_db {
 			{
 				$newItem->addChild($key, $value);
 			}
-		
+			
+			log_message('debug', 'Inserting(' . $filename . '): ' 
+					. print_r($newItem, true));
 			$xml = $this->save_xml_file($filename, $xml);
 		}
 		
@@ -90,11 +100,13 @@ class Xml_db {
 	function update($filename, $data)
 	{
 		$xml = $this->load_xml_file($filename);
-		
+				
 		if($xml !== FALSE) {
 			$found = FALSE;
-			foreach($xml->item as $node) {
-				if($node->id == $data['id']) {
+			foreach($xml->item as $node)
+			{
+				if($node->id == $data['id'])
+				{
 					$found = TRUE;
 					break;
 				}
@@ -106,8 +118,12 @@ class Xml_db {
 					$node->$key = $value;
 				}
 				
+				log_message('debug', 'Updating(' . $filename . '): ' 
+						. print_r($data, true));
 				$xml = $this->save_xml_file($filename, $xml);
-			} else {
+			}
+			else
+			{
 				$this->set_error('xml_db_item_not_found');
 				$xml = FALSE;
 			}
@@ -120,10 +136,13 @@ class Xml_db {
 	{	
 		$result = TRUE;
 		
-		if(isset($data['id'])) {
+		if(isset($data['id']))
+		{
 			$result = $this->update($filename, $data);
 			
-		} else {
+		}
+		else
+		{
 			$result = $this->insert($filename, $data);
 		}
 		
@@ -134,11 +153,14 @@ class Xml_db {
 	{
 		$xml = $this->load_xml_file($filename);
 		
-		if($xml !== FALSE) {
+		if($xml !== FALSE)
+		{
 			$found = FALSE;
 			
-			foreach($xml->item as $node) {
-				if ($node->id == $id) {				
+			foreach($xml->item as $node)
+			{
+				if ($node->id == $id)
+				{				
 					$found = TRUE;
 					break;
 				}
@@ -149,7 +171,9 @@ class Xml_db {
 				$dom->parentNode->removeChild($dom);
 				
 				$xml = $this->save_xml_file($filename, $xml);
-			} else {
+			}
+			else
+			{
 				$this->set_error('xml_db_item_not_found');
 				$xml = FALSE;
 			}
