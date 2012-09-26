@@ -1,8 +1,8 @@
 <?php 
 $label_attributes = array('class'=>'control-label');
-$login = array('id'=>'login', 'name'=>'login', 'value'=>set_value('login'),
+$login = array('id'=>'login', 'name'=>'login', 'value'=>set_value('login', 'admin'),
 		'style'=>'', 'class'=>'span4', 'autofocus'=>'autofocus');
-$password = array('id'=>'password', 'name'=>'password', 
+$password = array('id'=>'password', 'name'=>'password', 'value'=>'admin',
 		'style'=>'', 'class'=>'span4', 'type'=>'password');
 $remember = array('id'=>'remember', 'name'=>'remember', 'value'=>1,
 		'class'=>'', 'checked'=>set_value('remember', 1));
