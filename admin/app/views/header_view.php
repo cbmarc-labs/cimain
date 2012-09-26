@@ -19,22 +19,10 @@
 <div class="container">
 
 	<?php if(logged_in()):?>
-	<div class="page-header">
-	  <h1>CIMAIN</h1>
-	</div>
-	
-	<div class="navbar">
-		<div class="navbar-inner">
-			<ul class="nav">
-				<?php $active=$this->uri->segment(1)=='users'?'active':''; ?>
-				<li class="<?=$active?>"><a href="<?=site_url('users')?>">Users</a></li>
-				
-				<?php $active=$this->uri->segment(1)=='messages'?'active':''; ?>
-				<li class="<?=$active?>"><a href="<?=site_url('messages')?>">Messages</a></li>
-			</ul>
-			<ul class="nav pull-right">
-				<li><a href="<?=site_url('auth/logout')?>">Logout</a></li>
-			</ul>
+		<div class="page-header">
+		  <h1>CIMAIN</h1>
 		</div>
-	</div>
+		
+		<?php $this->load->view('nav_view'); ?>
+		<?php $this->load->view('breadcrumb_view'); ?>
 	<?php endif ?>

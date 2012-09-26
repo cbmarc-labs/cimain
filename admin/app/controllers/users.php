@@ -54,7 +54,7 @@ class Users extends CI_Controller {
 			{
 				$this->table->add_row(
 						$user['id'],
-						anchor('users/edit/'.$user['id'], $user['login']),
+						anchor(current_url().'/edit/'.$user['id'], $user['login']),
 						date('Y-m-d H:i:s', strtotime($user['created'])),
 						date('Y-m-d H:i:s',strtotime($user['last_update'])),
 						form_checkbox(array('name'=>'active', 'value'=>1,
@@ -102,7 +102,7 @@ class Users extends CI_Controller {
 				if($this->user_model->insert($data) === TRUE)
 				{
 					set_success(lang('xml_db_item_saved'), TRUE);
-					redirect('users/add');
+					redirect(current_url());
 				}
 								
 				set_error($this->user_model->get_error());
@@ -124,17 +124,19 @@ class Users extends CI_Controller {
 	public function edit()
 	{
 		$this->content_data['section'] = lang('user_section_title_edit');
-		$id = $this->uri->segment(3);
-		
+		$id = $this->uri->rsegment(3);
+				
 		if($id === FALSE)
-			redirect('users');
+			redirect($this->router->fetch_directory() . 
+					$this->router->fetch_class());
 		
 		if($this->input->post('delete'))
 		{
 			if($this->user_model->delete($id) === TRUE)
 			{
 				set_success(lang('xml_db_item_deleted'), TRUE);
-				redirect('users');
+				redirect($this->router->fetch_directory() . 
+						$this->router->fetch_class());
 			}
 		
 			// repopulate fields and show error
@@ -178,7 +180,8 @@ class Users extends CI_Controller {
 			if($data === FALSE)
 			{
 				set_warning($this->user_model->get_error(), TRUE);
-				redirect('users');
+				redirect($this->router->fetch_directory() . 
+						$this->router->fetch_class());
 			}
 			
 			$this->_set_form_values($data);
@@ -197,7 +200,7 @@ class Users extends CI_Controller {
 	 */	
 	public function edit_ajax()
 	{
-		$id = $this->uri->segment(3);
+		$id = $this->uri->rsegment(3);
 		
 		if($this->input->is_ajax_request() && $this->input->post() && $id !== FALSE)
 		{
@@ -247,7 +250,8 @@ class Users extends CI_Controller {
 				set_warning($it . '/' . count($values) . ' ' .
 						lang('xml_db_item_deleted'), TRUE);
 			
-			redirect('users');
+			redirect($this->router->fetch_directory() . 
+					$this->router->fetch_class());
 		}
 	}
 	

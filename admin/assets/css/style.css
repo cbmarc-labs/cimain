@@ -1,3 +1,13 @@
+/* bootstrap modifications */
+ul.nav li.dropdown:hover ul.dropdown-menu{
+    display: block;
+    top:37px;
+}
+
+a.menu:after, .dropdown-toggle:after {
+  content: none;
+}
+
 /* alerts icons */
 .success-icon:before{margin:0 10px 0 10px;content:"\2714";}
 .warning-icon:before{margin:0 10px 0 10px;content:"\26A0";}

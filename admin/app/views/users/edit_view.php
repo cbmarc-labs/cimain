@@ -28,9 +28,6 @@ $delete = array('name'=>'delete', 'value'=>'delete',
 
 <?=form_open()?>
 
-<fieldset>
-<legend><?=$section?></legend>
-
 <div class="row">
 	<div class="span4">
 		<?php $error = form_error('login')?'error':'' ?>
@@ -112,7 +109,6 @@ $delete = array('name'=>'delete', 'value'=>'delete',
 	</div>
 </div>
 
-</fieldset>
 <?=form_close()?>
 
 <script type="text/javascript">

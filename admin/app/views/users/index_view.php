@@ -13,7 +13,7 @@
 			
 			if($target.is('input')) {
 				$.post(
-					'<?=site_url()?>/users/edit_ajax/'+iId, 
+					'<?=current_url()?>/edit_ajax/'+iId, 
 					{ active:checked },
 					function(data) {
 						// error
@@ -45,12 +45,12 @@
 //-->
 </script>
 
-<?=form_open('users/delete', array('id'=>'delete_form'), array('ids'=>''))?>
+<?=form_open(current_url().'/delete', array('id'=>'delete_form'), array('ids'=>''))?>
 <?=form_close()?>
 
 <div class="row">
 	<div class="span">
-		<?=anchor('users/add', '<i class="icon-ok"></i> ' .
+		<?=anchor(current_url().'/add', '<i class="icon-ok"></i> ' .
 			 lang('toolbar_add_item'), 'class="btn"')?>
 			 
 		<span id="toolbar_delete" class="btn btn-danger">
