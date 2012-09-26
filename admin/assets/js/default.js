@@ -62,15 +62,13 @@ jQuery.fn.dataTableClick = function() {
  */
 jQuery.extend( {	
 	msg: function(type, message) {
-		
-		if($("#msg").length == 0) {
-			$('<div class="message ' + type + '-icon" id="msg">' 
-					+ message + '</div>').appendTo('body');
-		}
+		if($("#msg").length == 0)
+			$('<div id="msg">' + message + '</div>').appendTo('body');
 		
 		$("#msg")
+			.addClass("alert alert-" + type + " " + type + "-icon")
+			.css({'position':'absolute'})
 			.centerWidth()
-			.css({})
 			.animate({ top: "-2px" }, 250 )
 			.click(function(){
 				$(this).fadeOut(250,function(){

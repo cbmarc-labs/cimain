@@ -37,7 +37,6 @@ $lang['user_section_title_edit'] = 'Edit User';
 $lang['user_form_login'] = 'Login';
 $lang['user_form_password'] = 'Password';
 $lang['user_form_confirm_password'] = 'Confirm Password';
-$lang['user_form_active'] = 'Active';
 $lang['user_form_sex'] = 'Sex';
 $lang['user_form_sex_0'] = 'Select ...';
 $lang['user_form_sex_1'] = 'Woman';
@@ -55,6 +54,8 @@ $lang['user_form_color_7'] = 'pink';
 $lang['user_form_color_8'] = 'red';
 $lang['user_form_color_9'] = 'white';
 $lang['user_form_color_10'] = 'yellow';
+$lang['user_form_description'] = 'Description';
+$lang['user_form_active'] = 'Active';
 
 // GENERAL FORM
 $lang['form_multiselect'] = 'options selected';

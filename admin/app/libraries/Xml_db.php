@@ -38,13 +38,15 @@ class Xml_db {
 			} elseif(is_array($var)) {
 				foreach($xml->item as $node) {
 					$match = TRUE;
-					foreach($var as $key=>$value) {						
+					foreach($var as $key=>$value) {
 						if(strcasecmp($node->$key,$value))
 							$match = FALSE;
 					}
 					
-					if($match === TRUE)
+					if($match === TRUE) {
 						$arr[] = get_object_vars($node);
+						break;
+					}
 				}
 				
 			// return by id

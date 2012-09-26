@@ -50,7 +50,7 @@ class Auth extends CI_Controller {
 		
 		$result = $this->xml_db->get('users', 
 				array('login'=>$login, 'password'=>md5($password)));
-
+				
 		if(!$result) {
 			$error = $this->xml_db->get_error();
 			

@@ -15,7 +15,7 @@ class Messages extends CI_Controller {
 			redirect('auth');
 		
 		$this->load->library(array('xml_db', 'table', 'message'));
-		$this->load->helper(array('message'));
+		$this->load->helper(array('form', 'message'));
 		
 		$this->header_data['title'] = "Application - Messages";
 	}
@@ -37,7 +37,7 @@ class Messages extends CI_Controller {
 			foreach($data as $message)
 			{
 				$this->table->add_row(
-						$message['date'],
+						date('Y-m-d H:i:s',strtotime($message['date'])),
 						$message['login'],
 						$message['section'],
 						$message['type'],

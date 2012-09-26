@@ -31,8 +31,6 @@
 		});
 
 		$('#toolbar_delete').on('click', function (event) {
-			event.preventDefault();
-			
 			if(confirm("<?=lang('are_you_sure')?>")) {
 				$('input[name=ids]').val(oTable.getSelected());
 				$('#delete_form').submit();
@@ -48,12 +46,16 @@
 <?=form_open('users/delete', array('id'=>'delete_form'), array('ids'=>''))?>
 <?=form_close()?>
 
-<div class="nav">
+<div class="row">
+	<div class="span">
 		<?=anchor('users/add', '<i class="icon-ok"></i> ' .
 			 lang('toolbar_add_item'), 'class="btn"')?>
-		<?=anchor('', '<i class="icon-remove icon-white"></i> ' . 
-			lang('toolbar_delete_items'), 
-			'id="toolbar_delete" class="btn btn-danger"')?>
+			 
+		<span id="toolbar_delete" class="btn btn-danger">
+			<i class="icon-remove icon-white"></i>
+			<?=lang('toolbar_delete_items')?>
+		</span>
+	</div>
 </div>
 
 <?=$table?>

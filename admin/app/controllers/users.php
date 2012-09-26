@@ -43,8 +43,8 @@ class Users extends CI_Controller {
 				$this->table->add_row(
 						$user['id'],
 						anchor('users/edit/'.$user['id'], $user['login']),
-						$user['created'],
-						date('d-m-Y',strtotime($user['last_update'])),
+						date('Y-m-d H:i:s', strtotime($user['created'])),
+						date('Y-m-d H:i:s',strtotime($user['last_update'])),
 						form_checkbox(array('name'=>'active', 'value'=>1,
 								'checked'=>$user['active']))
 				);
@@ -214,6 +214,7 @@ class Users extends CI_Controller {
 		$data['active'] = 1;
 		$data['sex'] = 0;
 		$data['color'] = array();
+		$data['description'] = '';
 		
 		$this->content_data['user'] = $data;
 	}
@@ -235,6 +236,9 @@ class Users extends CI_Controller {
 		if($this->input->post('color') !== FALSE)
 			$data['color'] = $this->input->post('color');
 		
+		if($this->input->post('description') !== FALSE)
+			$data['description'] = $this->input->post('description');
+		
 		$this->content_data['user'] = $data;
 	}
 
@@ -253,6 +257,10 @@ class Users extends CI_Controller {
 		
 		$this->form_validation->set_rules(
 				'sex', lang('user_form_sex'), "is_natural_no_zero");
+		
+		$this->form_validation->set_rules(
+				'description', lang('user_form_description'),
+				"trim|xss_clean|max_length[200]");
 	}
 
 	private function _load_view($view)

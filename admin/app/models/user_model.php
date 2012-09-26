@@ -17,6 +17,7 @@ class User_model extends CI_Model {
 		$data = $this->_get_post();
 		
 		if(!isset($data['color'])) $data['color'] = '';
+		if(!isset($data['description'])) $data['description'] = '';
 		
 		$data['created'] = date(DATE_ISO8601);
 		$data['last_update'] = date(DATE_ISO8601);
@@ -81,6 +82,9 @@ class User_model extends CI_Model {
 		
 		if($this->input->post('color') !== FALSE)
 			$data['color'] = implode(',', $this->input->post('color'));
+		
+		if($this->input->post('description') !== FALSE)
+			$data['description'] = $this->input->post('description');
 		
 		return $data;
 	}

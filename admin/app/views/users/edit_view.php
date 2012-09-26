@@ -15,6 +15,8 @@ $color = array(1=>lang('user_form_color_1'), 2=>lang('user_form_color_2'),
 		5=>lang('user_form_color_5'),6=>lang('user_form_color_6'),
 		7=>lang('user_form_color_7'),8=>lang('user_form_color_8'),
 		9=>lang('user_form_color_9'),10=>lang('user_form_color_10'));
+$description = array('name'=>'description', 'value'=>$user['description'], 'rows'=>4, 
+		'class'=>'span8');
 $submit = array('name'=>'submit', 'value'=>'submit', 
 		'class'=>'btn', 'type'=>'submit',
 		'content'=>'<i class="icon-ok"></i> '.lang('form_submit'));
@@ -29,16 +31,20 @@ $delete = array('name'=>'delete', 'value'=>'delete',
 <fieldset>
 <legend><?=$section?></legend>
 
-<?php $error = form_error('login')?'error':'' ?>
-<div class="control-group <?=$error?>">
-	<?=form_label(lang('user_form_login') . ' *' . form_error('login'), 'login', $label_attributes)?>
-	<div class="controls">
-		<?=form_input($login)?>
+<div class="row">
+	<div class="span3">
+		<?php $error = form_error('login')?'error':'' ?>
+		<div class="control-group <?=$error?>">
+			<?=form_label(lang('user_form_login') . ' *' . form_error('login'), 'login', $label_attributes)?>
+			<div class="controls">
+				<?=form_input($login)?>
+			</div>
+		</div>
 	</div>
 </div>
 
 <div class="row">
-	<div class="span4">
+	<div class="span3">
 		<?php $error = form_error('password')?'error':'' ?>
 		<div class="control-group <?=$error?>">
 			<?=form_label(lang('user_form_password') . ' *' . form_error('password'), 'password', $label_attributes)?>
@@ -47,7 +53,7 @@ $delete = array('name'=>'delete', 'value'=>'delete',
 			</div>
 		</div>
 	</div>
-	<div class="span4">
+	<div class="span3">
 		<?php $error = form_error('confirm_password')?'error':'' ?>
 		<div class="control-group <?=$error?>">
 			<?=form_label(lang('user_form_confirm_password') . ' *' . form_error('confirm_password'), 'confirm_password', $label_attributes)?>
@@ -59,7 +65,7 @@ $delete = array('name'=>'delete', 'value'=>'delete',
 </div>
 
 <div class="row">
-	<div class="span4">
+	<div class="span3">
 		<?php $error = form_error('sex')?'error':'' ?>
 		<div class="control-group <?=$error?>">
 			<?=form_label(lang('user_form_sex') . ' *' . form_error('sex'), 'sex', $label_attributes)?>
@@ -68,7 +74,7 @@ $delete = array('name'=>'delete', 'value'=>'delete',
 			</div>
 		</div>
 	</div>
-	<div class="span4">
+	<div class="span3">
 		<div class="control-group">
 			<?=form_label(lang('user_form_color'))?>
 			<div class="controls">
@@ -78,10 +84,11 @@ $delete = array('name'=>'delete', 'value'=>'delete',
 	</div>
 </div>
 
-<div class="control-group">
-	<label>Description</label>
+<?php $error = form_error('description')?'error':'' ?>
+<div class="control-group <?=$error?>">
+	<?=form_label(lang('user_form_description') . form_error('description'), 'description', $label_attributes)?>
 	<div class="controls">
-		<textarea class="span8" rows="5"></textarea>
+		<?=form_textarea($description)?>
 	</div>
 </div>
 
@@ -116,6 +123,7 @@ $(document).ready(function() {
     	noneSelected: '<?=lang('user_form_color_0')?>',
     	oneOrMoreSelected: '% <?=lang('form_multiselect')?>'
 	});
+	$("[rel=tooltip]").tooltip();
 });
 //-->
 </script>
