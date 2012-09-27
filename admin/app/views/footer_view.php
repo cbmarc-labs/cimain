@@ -7,13 +7,14 @@
 <footer class="footer">
 </footer>
 
-<?php if($this->message->get_message()) : ?>
-
-<script type="text/javascript">
-	jQuery.msg('<?=$this->message->get_type()?>', '<?=$this->message->get_message()?>');
-</script>
-
-<?php endif ?>
+	<?php $msg = get_message(); ?>
+	<?php if($msg['message']) : ?>
+	
+	<script type="text/javascript">
+		jQuery.msg('<?=$msg['type']?>', '<?=$msg['message']?>');
+	</script>
+	
+	<?php endif ?>
 
 <?php endif ?>
 

@@ -120,7 +120,7 @@ $(document).ready(function() {
     	noneSelected: '<?=lang('user_form_color_0')?>',
     	oneOrMoreSelected: '% <?=lang('form_multiselect')?>'
 	});
-	$("[rel=tooltip]").tooltip();
+	//$("[rel=tooltip]").tooltip();
 });
 //-->
 </script>

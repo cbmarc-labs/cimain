@@ -56,6 +56,18 @@ if ( ! function_exists('set_error'))
 	}
 }
 
+if ( ! function_exists('get_message'))
+{
+	function get_message()
+	{
+		$CI =& get_instance();
+		$CI->load->library(array('message'));
+		
+		return array('type'=>$CI->message->get_type(), 
+				'message'=>$CI->message->get_message());
+	}
+}
+
 // ------------------------------------------------------------------------
 
 /* End of file xml_helper.php */

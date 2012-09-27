@@ -25,9 +25,8 @@ class Users extends CI_Controller {
 
 		if(!logged_in())
 			redirect('auth');
-
-		$this->load->library(array('table', 'form_validation', 'message', 'session'));
-		$this->load->helper(array('form', 'message'));
+		
+		$this->load->helper('message');
 		$this->load->model('user_model');
 	}
 	
@@ -40,8 +39,9 @@ class Users extends CI_Controller {
 	 */
 	public function index()
 	{
-		//$this->xml_db->create('users');
-		
+		$this->load->library(array('table'));
+		$this->load->helper(array('form'));
+				
 		$this->table->set_heading(
 				'id', 'login', 'created', 'last_update', 'active');
 		$this->table->set_template(
@@ -68,7 +68,7 @@ class Users extends CI_Controller {
 		}
 
 		$this->content_data['table'] = $this->table->generate();
-		$this->_load_view('users/index_view');
+		$this->_load_view('index_view');
 
 	}
 	
@@ -78,11 +78,11 @@ class Users extends CI_Controller {
 	 * Add method
 	 *
 	 * @access public
-	 * @return void
 	 */
 	public function add()
 	{
-		$this->content_data['section'] = lang('user_section_title_add');
+		$this->load->library(array('form_validation'));
+		$this->load->helper(array('form'));
 		
 		if($this->input->post('submit'))
 		{
@@ -110,7 +110,7 @@ class Users extends CI_Controller {
 		}
 		
 		$this->_set_form_values();
-		$this->_load_view('users/edit_view');
+		$this->_load_view('edit_view');
 	}
 	
 	// --------------------------------------------------------------------
@@ -119,24 +119,23 @@ class Users extends CI_Controller {
 	 * Edit method
 	 *
 	 * @access	public
-	 * @return void
 	 */
 	public function edit()
 	{
-		$this->content_data['section'] = lang('user_section_title_edit');
+		$this->load->library(array('form_validation'));
+		$this->load->helper(array('form', 'myurl'));
+		
 		$id = $this->uri->rsegment(3);
 				
 		if($id === FALSE)
-			redirect($this->router->fetch_directory() . 
-					$this->router->fetch_class());
+			redirect_current_controller();
 		
 		if($this->input->post('delete'))
 		{
 			if($this->user_model->delete($id) === TRUE)
 			{
 				set_success(lang('xml_db_item_deleted'), TRUE);
-				redirect($this->router->fetch_directory() . 
-						$this->router->fetch_class());
+				redirect_current_controller();
 			}
 		
 			// repopulate fields and show error
@@ -180,14 +179,13 @@ class Users extends CI_Controller {
 			if($data === FALSE)
 			{
 				set_warning($this->user_model->get_error(), TRUE);
-				redirect($this->router->fetch_directory() . 
-						$this->router->fetch_class());
+				redirect_current_controller();
 			}
 			
 			$this->_set_form_values($data);
 		}
 
-		$this->_load_view('users/edit_view');
+		$this->_load_view('edit_view');
 	}
 	
 	// --------------------------------------------------------------------
@@ -195,7 +193,7 @@ class Users extends CI_Controller {
 	/**
 	 * edit_ajax method
 	 *
-	 * @access	public
+	 * @access public
 	 * @return array
 	 */	
 	public function edit_ajax()
@@ -231,6 +229,8 @@ class Users extends CI_Controller {
 	 */
 	public function delete()
 	{
+		$this->load->helper(array('myurl'));
+		
 		if($this->input->post())
 		{
 			$ids = $this->input->post('ids');
@@ -250,8 +250,7 @@ class Users extends CI_Controller {
 				set_warning($it . '/' . count($values) . ' ' .
 						lang('xml_db_item_deleted'), TRUE);
 			
-			redirect($this->router->fetch_directory() . 
-					$this->router->fetch_class());
+			redirect_current_controller();
 		}
 	}
 	
@@ -335,7 +334,7 @@ class Users extends CI_Controller {
 	private function _load_view($view)
 	{
 		$this->load->view('header_view');
-		$this->load->view($view, $this->content_data);
+		$this->load->view('users/' . $view, $this->content_data);
 		$this->load->view('footer_view');
 	}
 
