@@ -15,6 +15,9 @@ class MY_Controller extends CI_Controller {
 	{
 		parent::__construct();
 		
+		if(!logged_in())
+			redirect('auth');
+		
 		$this->load->helper('message');
 	}
 	

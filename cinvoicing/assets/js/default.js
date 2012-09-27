@@ -20,7 +20,7 @@ if(typeof dataTableLanguage == 'undefined')
 jQuery.fn.dataTableInit = function (params) {		
 	this.dataTable(jQuery.extend({}, {
 		"sDom": '<"dataTables_top"lf>t<"dataTables_bottom"ip>',
-		"bStateSave": true,
+		"bStateSave": false,
 		"sPaginationType": "full_numbers",
 		"aaSorting": [[ 1, "asc" ]],
 		"oLanguage": dataTableLanguage,
@@ -63,11 +63,12 @@ jQuery.fn.dataTableClick = function() {
 jQuery.extend( {	
 	msg: function(type, message) {
 		if($("#msg").length == 0)
-			$('<div id="msg">' + message + '</div>').appendTo('body');
+			$('<div id="msg">&nbsp;&nbsp;&nbsp;' + message + '</div>')
+				.appendTo('body');
 		
 		$("#msg")
 			.addClass("alert alert-" + type + " " + type + "-icon")
-			.css({'position':'absolute'})
+			.css({'cursor':'pointer','position':'absolute','padding-left':'30px'})
 			.centerWidth()
 			.animate({ top: "-2px" }, 250 )
 			.click(function(){

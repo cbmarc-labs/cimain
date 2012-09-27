@@ -103,7 +103,7 @@ $delete = array('name'=>'delete', 'value'=>'delete',
 	<?=form_button($submit)?>
 
 	<div class="span pull-right">
-		<?php if($this->uri->segment(3)) : ?>
+		<?php if($this->uri->rsegment(3)) : ?>
 			<?=form_button($delete)?>
 		<?php endif; ?>
 	</div>

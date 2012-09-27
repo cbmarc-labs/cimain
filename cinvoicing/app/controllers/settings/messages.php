@@ -8,9 +8,6 @@ class Messages extends MY_Controller {
 		
 		//$this->output->enable_profiler();
 		
-		if(!logged_in())
-			redirect('auth');
-		
 		$this->load->library(array('xml_db', 'table'));
 		$this->load->helper(array('form', 'myurl'));
 		

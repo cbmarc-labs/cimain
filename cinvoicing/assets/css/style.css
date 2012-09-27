@@ -9,9 +9,9 @@ a.menu:after, .dropdown-toggle:after {
 }
 
 /* alerts icons */
-.success-icon:before{margin:0 10px 0 10px;content:"\2714";}
-.warning-icon:before{margin:0 10px 0 10px;content:"\26A0";}
-.error-icon:before{margin:0 10px 0 10px;content:"\2718";}
+.success-icon:before{content:"\2714";}
+.warning-icon:before{content:"\26A0";}
+.error-icon:before{content:"\2718";}
 
 /* multiselect field */
 a.multiSelect, a.multiSelect:link {

@@ -3,8 +3,6 @@
 class User_model extends CI_Model {
 	
 	private $table = 'users';
-	private $fields = array('login', 'password', 'active', 'sex', 'color', 
-			'description');
 	
 	function __construct()
 	{

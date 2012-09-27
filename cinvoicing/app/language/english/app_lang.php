@@ -29,9 +29,9 @@ $lang['xml_db_item_saved'] = 'Item saved.';
 $lang['xml_db_item_deleted'] = 'Item/s deleted.';
 $lang['xml_db_error_delete'] = 'Error deleting items.';
 
-// USER SECTION
-$lang['user_section_title_add'] = 'Add User';
-$lang['user_section_title_edit'] = 'Edit User';
+// TAX FORM FIELDS
+$lang['tax_form_description'] = 'Description';
+$lang['tax_form_rate'] = 'Rate';
 
 // USER FORM FIELDS
 $lang['user_form_login'] = 'Login';

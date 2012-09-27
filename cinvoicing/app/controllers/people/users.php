@@ -21,9 +21,6 @@ class Users extends MY_Controller {
 		log_message('debug', "Users Class Initialized");
 
 		//$this->output->enable_profiler();
-
-		if(!logged_in())
-			redirect('auth');
 		
 		$this->load->model('user_model');
 	}
