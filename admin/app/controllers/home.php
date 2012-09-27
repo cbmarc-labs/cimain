@@ -6,7 +6,7 @@
  * @author marc
  *
  */
-class Index extends CI_Controller {
+class Home extends CI_Controller {
 	
 	/**
 	 * Constructor
@@ -14,8 +14,6 @@ class Index extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-	
-		$this->load->helper(array('url'));
 	}
 	
 	/**
@@ -25,6 +23,8 @@ class Index extends CI_Controller {
 	 */
 	public function index()
 	{
+		$this->load->helper(array('url'));
+		
 		redirect('users');
 	}
 	
