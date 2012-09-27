@@ -26,6 +26,6 @@ if ( ! function_exists('redirect_current_controller'))
 		$dir = $CI->router->fetch_directory();
 		$cls = $CI->router->fetch_class();
 		
-		redirect($dir + $cls + $method);
+		redirect($dir . $cls . $method);
 	}
 }
