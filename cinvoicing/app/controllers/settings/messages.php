@@ -1,9 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Messages extends CI_Controller {
-	
-	private $header_data = array();
-	private $content_data = array();
+class Messages extends MY_Controller {
 	
 	public function __construct()
 	{
@@ -14,8 +11,8 @@ class Messages extends CI_Controller {
 		if(!logged_in())
 			redirect('auth');
 		
-		$this->load->library(array('xml_db', 'table', 'message'));
-		$this->load->helper(array('form', 'message', 'myurl'));
+		$this->load->library(array('xml_db', 'table'));
+		$this->load->helper(array('form', 'myurl'));
 		
 		$this->header_data['title'] = "Application - Messages";
 	}
@@ -46,9 +43,9 @@ class Messages extends CI_Controller {
 			}
 		}
 		
-		$this->content_data['table'] = $this->table->generate();
+		$this->data['table'] = $this->table->generate();
 		
-		$this->_load_view('messages/index_view');
+		$this->_load_view('index_view');
 		
 	}
 	
@@ -62,13 +59,6 @@ class Messages extends CI_Controller {
 			set_success(lang('xml_db_item_deleted'), TRUE);
 		
 		redirect_current_controller();
-	}
-	
-	private function _load_view($view)
-	{
-		$this->load->view('header_view', $this->header_data);
-		$this->load->view($view, $this->content_data);
-		$this->load->view('footer_view');		
 	}
 	
 }
