@@ -9,9 +9,10 @@ a.menu:after, .dropdown-toggle:after {
 }
 
 /* alerts icons */
-.success-icon:before{content:"\2714";}
-.warning-icon:before{content:"\26A0";}
-.error-icon:before{content:"\2718";}
+.success-icon:before{content:"\2714";font-weight:bolder;color:#468847;}
+.warning-icon:before{content:"\26A0";font-weight:bolder;color:#C09853;}
+.error-icon:before{content:"\2718";font-weight:bolder;color:#B94A48;}
+.alert-icon:before{content:"\26A0";font-weight:bolder;color:#B94A48;}
 
 /* multiselect field */
 a.multiSelect, a.multiSelect:link {

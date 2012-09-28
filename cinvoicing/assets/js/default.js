@@ -57,28 +57,4 @@ jQuery.fn.dataTableClick = function() {
 	return this;
 }
 
-/**
- * MESSAGE BOX
- */
-jQuery.extend( {	
-	msg: function(type, message) {
-		if($("#msg").length == 0)
-			$('<div id="msg">&nbsp;&nbsp;&nbsp;' + message + '</div>')
-				.appendTo('body');
-		
-		$("#msg")
-			.addClass("alert alert-" + type + " " + type + "-icon")
-			.css({'cursor':'pointer','position':'absolute','padding-left':'30px'})
-			.centerWidth()
-			.animate({ top: "-2px" }, 250 )
-			.click(function(){
-				$(this).fadeOut(250,function(){
-					$(this).remove();
-				})
-			});
-		
-	}
-	
-});
-
 }

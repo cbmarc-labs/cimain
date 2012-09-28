@@ -3,8 +3,6 @@ $label_attributes = array('class'=>'control-label');
 $description = array('id'=>'description', 'name'=>'description', 
 		'value'=>$field['description'],	'class'=>'span6',
 		'autofocus'=>'autofocus');
-$rate = array('id'=>'rate', 'name'=>'rate', 'class'=>'span2', 
-		'value'=>$field['rate']);
 
 $submit = array('name'=>'submit', 'value'=>'submit', 
 		'class'=>'btn', 'type'=>'submit',
@@ -21,22 +19,10 @@ $delete = array('name'=>'delete', 'value'=>'delete',
 	<div class="span4">
 		<?php $error = form_error('description')?'error':'' ?>
 		<div class="control-group <?=$error?>">
-			<?=form_label(lang('taxes_form_description') . ' *', 'description', 
-					$label_attributes)?>
+			<?=form_label(lang('payments_form_description') . ' *' ,
+					'description', $label_attributes)?>
 			<div class="controls">
 				<?=form_input($description)?>
-			</div>
-		</div>
-	</div>
-</div>
-
-<div class="row">
-	<div class="span4">
-		<?php $error = form_error('rate')?'error':'' ?>
-		<div class="control-group <?=$error?>">
-			<?=form_label(lang('taxes_form_rate'), 'rate', $label_attributes)?>
-			<div class="controls">
-				<?=form_input($rate)?>
 			</div>
 		</div>
 	</div>

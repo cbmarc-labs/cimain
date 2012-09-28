@@ -2,7 +2,7 @@
 	<div class="navbar-inner">
 		<ul class="nav">				
 			<li class="dropdown">
-				<a href="<?=site_url('money')?>" class="dropdown-toggle disabled" data-toggle="dropdown">Money
+				<a class="dropdown-toggle disabled" data-toggle="dropdown">Money
 					<b class="caret"></b>
 				</a>
 				<ul class="dropdown-menu">
@@ -12,7 +12,7 @@
 			</li>
 			
 			<li class="dropdown">
-				<a href="<?=site_url('stock')?>" class="dropdown-toggle disabled" data-toggle="dropdown">Stock
+				<a class="dropdown-toggle disabled" data-toggle="dropdown">Stock
 					<b class="caret"></b>
 				</a>
 				<ul class="dropdown-menu">
@@ -22,7 +22,7 @@
 			</li>
 			
 			<li class="dropdown">
-				<a href="<?=site_url('people')?>" class="dropdown-toggle disabled" data-toggle="dropdown">People
+				<a class="dropdown-toggle disabled" data-toggle="dropdown">People
 					<b class="caret"></b>
 				</a>
 				<ul class="dropdown-menu">
@@ -32,7 +32,7 @@
 			</li>
 			
 			<li class="dropdown">
-				<a href="<?=site_url('settings')?>" class="dropdown-toggle disabled" data-toggle="dropdown">Settings
+				<a class="dropdown-toggle disabled" data-toggle="dropdown">Settings
 					<b class="caret"></b>
 				</a>
 				<ul class="dropdown-menu">

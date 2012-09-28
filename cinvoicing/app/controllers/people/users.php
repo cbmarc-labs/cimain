@@ -299,20 +299,13 @@ class Users extends MY_Controller {
 	 * @access private
 	 */
 	private function _set_form_rules()
-	{
-		$this->form_validation->set_error_delimiters(' (', ')');
-		
-		$this->form_validation->set_message('required', 'Required Field');
-		$this->form_validation->set_message('matches', 'Not match');
-		$this->form_validation->set_message('is_natural_no_zero', 'Required Field');
-		$this->form_validation->set_message('alpha_dash', 'Not valid');
-				
+	{				
 		$this->form_validation->set_rules(
 				'login', lang('user_form_login'),
 				"trim|required|xss_clean|min_length[2]|max_length[25]|alpha_dash");
 		
 		$this->form_validation->set_rules(
-				'sex', lang('user_form_sex'), "is_natural_no_zero");
+				'sex', lang('user_form_sex'), "required");
 		
 		$this->form_validation->set_rules(
 				'description', lang('user_form_description'),

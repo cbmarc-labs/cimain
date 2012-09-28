@@ -17,18 +17,13 @@
 	<?php if($this->uri->segment(3)): ?>
 	<li class="active"><?=ucfirst($this->uri->segment(3))?></li>
 	<?php endif; ?>
+	
+	<?php if(validation_errors()): ?>
+	<li class="pull-right alert-icon" style="color:#B94A48;" 
+		onclick="$('#validation_errors').toggle();"></li>
+	<?php endif; ?>
 </ul>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+<div id="validation_errors" class="alert alert-error hide">
+<?=validation_errors()?>
+</div>

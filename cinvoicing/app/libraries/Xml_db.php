@@ -153,6 +153,8 @@ class Xml_db {
 	{
 		$xml = $this->load_xml_file($filename);
 		
+		log_message('debug', 'Deleting(' . $filename . '): ' . $id);
+		
 		if($xml !== FALSE)
 		{
 			$found = FALSE;

@@ -29,21 +29,32 @@ $lang['xml_db_item_saved'] = 'Item saved.';
 $lang['xml_db_item_deleted'] = 'Item/s deleted.';
 $lang['xml_db_error_delete'] = 'Error deleting items.';
 
+// INVOICES FORM FIELDS
+$lang['invoices_form_customer'] = 'Customer';
+
+// PRODUCTS FORM FIELDS
+$lang['products_form_name'] = 'Name';
+
+// CUSTOMERS FORM FIELDS
+$lang['customers_form_name'] = 'Name';
+$lang['customers_form_email'] = 'E-Mail';
+
+// PAYMENTS FORM FIELDS
+$lang['payments_form_description'] = 'Description';
+
 // TAX FORM FIELDS
-$lang['tax_form_description'] = 'Description';
-$lang['tax_form_rate'] = 'Rate';
+$lang['taxes_form_description'] = 'Description';
+$lang['taxes_form_rate'] = 'Rate';
 
 // USER FORM FIELDS
 $lang['user_form_login'] = 'Login';
 $lang['user_form_password'] = 'Password';
 $lang['user_form_confirm_password'] = 'Confirm Password';
 $lang['user_form_sex'] = 'Sex';
-$lang['user_form_sex_0'] = 'Select ...';
 $lang['user_form_sex_1'] = 'Woman';
 $lang['user_form_sex_2'] = 'Man';
 $lang['user_form_sex_3'] = 'Other';
 $lang['user_form_color'] = 'Favorite Color';
-$lang['user_form_color_0'] = 'Select ...';
 $lang['user_form_color_1'] = 'black';
 $lang['user_form_color_2'] = 'blue';
 $lang['user_form_color_3'] = 'brown';

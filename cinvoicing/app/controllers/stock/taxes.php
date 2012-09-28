@@ -237,10 +237,6 @@ class Taxes extends MY_Controller {
 	 */
 	private function _set_form_rules()
 	{
-		$this->form_validation->set_error_delimiters(' (', ')');
-		
-		$this->form_validation->set_message('required', 'Required Field');
-				
 		$this->form_validation->set_rules(
 				'description', lang('tax_form_description'),
 				"trim|required|xss_clean|min_length[2]|max_length[25]");
