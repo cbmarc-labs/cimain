@@ -1,2 +1,2 @@
 <?xml version="1.0"?>
-<data><item><name>Product 1</name><id>50657c4dee08d</id></item></data>
+<data><item><name>product 1</name><description>description product 1</description><unit>meters</unit><price>10.12</price><id>5065dc7c8bf3d</id></item><item><name>producto 1</name><description>numeric numeric numeric numeric numeric numeric numeric numeric numeric numeric numeric nuic numeric numeric numeric numeric numeric numeric numeric numeric numeric numeric</description><unit>lkj</unit><price>10.22</price><id>5065dd87e1090</id></item></data>

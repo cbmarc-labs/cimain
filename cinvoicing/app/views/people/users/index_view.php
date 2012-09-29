@@ -40,7 +40,6 @@
 		});
 
 		$('div.dataTables_filter input').focus();
-		$('#toolbar_delete').hide();
 	});
 //-->
 </script>
@@ -50,10 +49,10 @@
 
 <div class="row">
 	<div class="span">
-		<?=anchor(current_url().'/add', '<i class="icon-ok"></i> ' .
+		<?=anchor(current_url().'/add', '<i class="icon-plus"></i> ' .
 			 lang('toolbar_add_item'), 'class="btn"')?>
 			 
-		<span id="toolbar_delete" class="btn btn-danger">
+		<span id="toolbar_delete" class="btn btn-danger hide">
 			<i class="icon-remove icon-white"></i>
 			<?=lang('toolbar_delete_items')?>
 		</span>

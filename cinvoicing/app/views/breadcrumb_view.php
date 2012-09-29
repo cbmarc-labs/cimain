@@ -19,11 +19,7 @@
 	<?php endif; ?>
 	
 	<?php if(validation_errors()): ?>
-	<li class="pull-right alert-icon" style="color:#B94A48;" 
+	<li class="pull-right alert-icon" style="cursor:pointer;color:#B94A48;" 
 		onclick="$('#validation_errors').toggle();"></li>
 	<?php endif; ?>
 </ul>
-
-<div id="validation_errors" class="alert alert-error hide">
-<?=validation_errors()?>
-</div>

@@ -37,8 +37,10 @@ class MY_Controller extends CI_Controller {
 		$this->load->view('header_view');
 		$this->load->view('nav_view');
 		$this->load->view('breadcrumb_view');
+		$this->load->view('validation_view');
 		$this->load->view($dir . $cls . '/' . $view, $this->data);
-		$this->load->view('footer_view',array(
+		$this->load->view('footer_view');
+		$this->load->view('message_view', array(
 				'type'=>$this->message->get_type(), 
 				'message'=>$this->message->get_message()));
 	}

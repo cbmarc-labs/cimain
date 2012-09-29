@@ -32,7 +32,7 @@ class Invoices_model extends CI_Model {
 		{
 			foreach($customers as $customer)
 			{
-				if($invoice['customer'] == $customer['id'])
+				if($invoice['customer_id'] == $customer['id'])
 					$result[$key]['customer_name'] = $customer['name'];
 			}
 			

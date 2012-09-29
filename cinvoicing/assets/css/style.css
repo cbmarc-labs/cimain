@@ -1,4 +1,4 @@
-/* bootstrap modifications */
+/* bootstrap menu hover */
 ul.nav li.dropdown:hover ul.dropdown-menu{
     display: block;
     top:37px;
@@ -6,6 +6,11 @@ ul.nav li.dropdown:hover ul.dropdown-menu{
 
 a.menu:after, .dropdown-toggle:after {
   content: none;
+}
+
+/* bootstrap table hover */
+.table tbody tr:hover td, .table tbody tr:hover th {
+    background-color: #ddd;
 }
 
 /* alerts icons */

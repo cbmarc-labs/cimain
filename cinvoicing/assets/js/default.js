@@ -24,7 +24,7 @@ jQuery.fn.dataTableInit = function (params) {
 		"sPaginationType": "full_numbers",
 		"aaSorting": [[ 1, "asc" ]],
 		"oLanguage": dataTableLanguage,
-		"aoColumnDefs": [ { "bVisible": false, "aTargets": [ 0 ] }]
+		"aoColumnDefs": [ { "bVisible": false, "aTargets": [ 0 ] } ]
 	}, params));
 	
 	return this;
@@ -39,16 +39,19 @@ jQuery.fn.dataTableClick = function() {
 		
 		if($target.is('td')) {
 			var aData = table.fnGetData(this);
-			var iId = aData[0];
 			
-			if ( jQuery.inArray(iId, selected) == -1 )
-				selected[selected.length++] = iId;
-			else
-				selected = jQuery.grep(selected, function(value) {
-					return value != iId;
-				});
-			
-			$(this).toggleClass('row_selected');
+			if(aData) {
+				var iId = aData[0];
+				
+				if ( jQuery.inArray(iId, selected) == -1 )
+					selected[selected.length++] = iId;
+				else
+					selected = jQuery.grep(selected, function(value) {
+						return value != iId;
+					});
+				
+				$(this).toggleClass('row_selected');
+			}
 		}
 	});
 	
@@ -56,5 +59,29 @@ jQuery.fn.dataTableClick = function() {
 	
 	return this;
 }
+
+/* MESSAGE */
+jQuery.extend({
+	message: function(type, message) {
+		
+	if($('#message').length == 0)
+		$('<div id="message">&nbsp;&nbsp;&nbsp;' + message + '</div>')
+			.appendTo('body');
+
+	$('#message')
+		.addClass('alert alert-' + type + ' ' + type + '-icon')
+		.css({'cursor':'pointer','position':'absolute','padding-left':'30px'})
+		.centerWidth()
+		.animate({top:"-2px"},250)
+		.click(function(){
+			$(this).fadeOut(250,function(){
+				$(this).remove();
+			})
+		})
+		.show();
+	}
+});
+
+
 
 }

@@ -8,7 +8,7 @@
  */
 class Invoices extends MY_Controller {
 
-	var $fields = array('customer'=>'');
+	var $fields = array('customer_id'=>'');
 	
 	/**
 	 * Constructor
@@ -18,6 +18,7 @@ class Invoices extends MY_Controller {
 		parent::__construct();
 		
 		$this->load->model('invoices_model', 'model');
+		$this->load->helper('myurl');
 	}
 	
 	// --------------------------------------------------------------------
@@ -84,14 +85,12 @@ class Invoices extends MY_Controller {
 			}
 		}
 
-		$this->load->model('customers_model');
 		$this->load->helper(array('form'));
 		
 		$this->_set_form_values();
-		$this->data['customers'] = array_merge(array(""=>""), 
-				$this->customers_model->get_list());
+		$this->_set_form_list_values('customers');
 		
-		natcasesort($this->data['customers']);
+		$this->data['products'] = $this->_get_products();
 		
 		$this->_load_view('edit_view');
 	}
@@ -157,7 +156,7 @@ class Invoices extends MY_Controller {
 		}
 		
 		$this->load->model('customers_model');		
-		$this->data['customers'] = $this->customers_model->get_list();
+		$this->_set_form_list_values('customers');
 
 		$this->_load_view('edit_view');
 	}
@@ -194,6 +193,39 @@ class Invoices extends MY_Controller {
 			
 			redirect_current_controller();
 		}
+	}
+	
+	private function _get_products()
+	{
+		$this->load->model('products_model');
+		$this->load->library(array('table'));
+		
+		$this->table->set_heading('id', 'name', 'description', 'unit', 'price');
+		$this->table->set_template(array('table_open'=>
+				'<table class="table table-condensed table-hover" id="datatable_products">'));
+
+		$data = $this->products_model->get_all();
+		if($data !== FALSE)
+		{
+			foreach($data as $field)
+			{
+				if(strlen($field['description']) > 60)
+					$field['description'] = substr($field['description'],0,60) . " ...";
+				
+				$this->table->add_row(
+						$field['id'],
+						$field['name'],
+						$field['description'],
+						$field['unit'],
+						$field['price']);
+			}
+		}
+		else
+		{
+			set_error($this->products_model->get_error());
+		}
+
+		return $this->table->generate();
 	}
 	
 	// --------------------------------------------------------------------
@@ -241,6 +273,24 @@ class Invoices extends MY_Controller {
 	// --------------------------------------------------------------------
 	
 	/**
+	 * _set_form_customers_values method
+	 *
+	 * @access private
+	 * @param array
+	 */
+	private function _set_form_list_values($field)
+	{
+		$this->load->model($field . '_model', 'm');
+		
+		$this->data['field'][$field] = 
+			array_merge(array(""=>""), $this->m->get_list());
+		
+		natcasesort($this->data['field'][$field]);
+	}
+	
+	// --------------------------------------------------------------------
+	
+	/**
 	 * _set_form_rules method
 	 *
 	 * @access private
@@ -248,7 +298,7 @@ class Invoices extends MY_Controller {
 	private function _set_form_rules()
 	{				
 		$this->form_validation->set_rules(
-				'customer', lang('invoices_form_customer'), 'required');
+				'customer_id', lang('invoices_form_customer'), 'required');
 	}
 	
 }

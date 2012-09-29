@@ -34,6 +34,9 @@ $lang['invoices_form_customer'] = 'Customer';
 
 // PRODUCTS FORM FIELDS
 $lang['products_form_name'] = 'Name';
+$lang['products_form_description'] = 'Description';
+$lang['products_form_unit'] = 'Unit';
+$lang['products_form_price'] = 'Price';
 
 // CUSTOMERS FORM FIELDS
 $lang['customers_form_name'] = 'Name';

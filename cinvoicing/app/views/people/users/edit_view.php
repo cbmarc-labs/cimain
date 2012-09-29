@@ -15,8 +15,8 @@ $color = array(1=>lang('user_form_color_1'), 2=>lang('user_form_color_2'),
 		5=>lang('user_form_color_5'),6=>lang('user_form_color_6'),
 		7=>lang('user_form_color_7'),8=>lang('user_form_color_8'),
 		9=>lang('user_form_color_9'),10=>lang('user_form_color_10'));
-$description = array('name'=>'description', 'value'=>$field['description'], 'rows'=>4, 
-		'class'=>'span8');
+$description = array('name'=>'description', 'value'=>$field['description'], 
+		'rows'=>4, 'class'=>'span8');
 $submit = array('name'=>'submit', 'value'=>'submit', 
 		'class'=>'btn', 'type'=>'submit',
 		'content'=>'<i class="icon-ok"></i> '.lang('form_submit'));

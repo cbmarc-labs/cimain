@@ -8,7 +8,8 @@
  */
 class Products extends MY_Controller {
 
-	var $fields = array('name'=>'');
+	var $fields = array('name'=>'', 'description'=>'', 'unit'=>'', 
+			'price'=>'0.00');
 	
 	/**
 	 * Constructor
@@ -32,7 +33,7 @@ class Products extends MY_Controller {
 		$this->load->library(array('table'));
 		$this->load->helper(array('form'));
 				
-		$this->table->set_heading('id', 'name');
+		$this->table->set_heading('id', 'name', 'description', 'unit', 'price');
 		$this->table->set_template(array('table_open'=>
 				'<table class="table table-condensed table-hover" id="datatable_products">'));
 
@@ -41,9 +42,15 @@ class Products extends MY_Controller {
 		{
 			foreach($data as $field)
 			{
+				if(strlen($field['description']) > 60)
+					$field['description'] = substr($field['description'],0,60) . " ...";
+				
 				$this->table->add_row(
 						$field['id'],
-						anchor(current_url().'/edit/'.$field['id'], $field['name']));
+						anchor(current_url().'/edit/'.$field['id'], $field['name']),
+						$field['description'],
+						$field['unit'],
+						$field['price']);
 			}
 		}
 		else
@@ -239,6 +246,16 @@ class Products extends MY_Controller {
 		$this->form_validation->set_rules(
 				'name', lang('products_form_name'),
 				"trim|required|xss_clean|min_length[2]|max_length[25]");
+		
+		$this->form_validation->set_rules(
+				'description', lang('products_form_description'),
+				"trim|xss_clean|max_length[250]");
+		
+		$this->form_validation->set_rules('unit', lang('products_form_unit'),
+				"trim|xss_clean|max_length[15]");
+		
+		$this->form_validation->set_rules('price', lang('products_form_price'),
+				"trim|xss_clean|numeric");
 	}
 	
 }
