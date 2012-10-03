@@ -24,7 +24,7 @@ class Home extends MY_Controller {
 	 * @access public
 	 */
 	public function index()
-	{		
+	{
 		$this->_load_view('index_view');
 	}
 	
