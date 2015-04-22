@@ -19,7 +19,7 @@ class Home extends MX_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('welcome_message');
+		$this->load->view('home_message');
 	}
 }
 
