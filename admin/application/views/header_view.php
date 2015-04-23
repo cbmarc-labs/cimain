@@ -14,6 +14,7 @@
 	
 	<script type="text/javascript" src="<?php echo base_url( 'assets/lib/jquery-2.1.3/jquery-2.1.3.min.js' ); ?>"></script>
 	<script type="text/javascript" src="<?php echo base_url( 'assets/lib/bootstrap-3.3.4/js/bootstrap.min.js' ); ?>"></script>
+	<script type="text/javascript" src="<?php echo base_url( 'assets/js/default.js' ); ?>"></script>
 	
 	<link rel="shortcut icon" href="<?php echo base_url( 'favicon.ico' ); ?>">
 </head>
