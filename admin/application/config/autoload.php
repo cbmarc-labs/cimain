@@ -60,7 +60,7 @@ $autoload['packages'] = array( APPPATH . 'third_party/auth' );
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
 
-$autoload['libraries'] = array();
+$autoload['libraries'] = array( 'ion_auth' );
 
 
 /*
