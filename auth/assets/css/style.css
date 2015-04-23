@@ -1,0 +1,13 @@
+body {
+	background-color: #DDeeff;
+}
+
+.well {
+	background-image: -webkit-gradient(linear,left 0,left 100%,from(#FFFFDD),to(#FFFFDD));
+	background: #FFFFDD;
+	box-shadow: 0 6px 12px rgba(0,0,0,0.175);
+}
+
+footer {
+	margin-top: 50px;
+}

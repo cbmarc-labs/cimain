@@ -19,6 +19,4 @@
 </head>
 <body>
 
-<?php echo $this->load->view( 'navbar_view' ); ?>
-
 <div class="container-fluid">
