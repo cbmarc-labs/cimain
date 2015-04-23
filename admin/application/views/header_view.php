@@ -22,3 +22,10 @@
 <?php echo $this->load->view( 'navbar_view' ); ?>
 
 <div class="container-fluid">
+	<div class="row">
+	
+		<div class="hidden-xs hidden-sm col-md-1 hidden-print" role="navigation">
+				<?php echo $this->load->view( 'toolbar_view' ); ?>
+		</div>
+		
+		<div class="col-xs-12 col-xs-12 col-md-11">
