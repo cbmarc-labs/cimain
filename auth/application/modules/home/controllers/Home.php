@@ -80,7 +80,7 @@ class Home extends MY_Controller
 	private function _check_login( $data )
 	{
 		$login = $this->ion_auth->login(
-				$data['login'], $data['password'], FALSE);//$data['remember'] );
+				$data['login'], $data['password'], $data['remember'] );
 		
 		if( $login ) {
 			return TRUE;
@@ -101,8 +101,8 @@ class Home extends MY_Controller
 	{
 		$data['login']		= $this->input->post( 'login' );
 		$data['password']	= $this->input->post( 'password' );
-		$data['remember']	= $this->input->post( 'remember' ) ? 1 : 0;
-
+		$data['remember']	= (bool) $this->input->post( 'remember' );
+		
 		return $data;
 	}
 	
