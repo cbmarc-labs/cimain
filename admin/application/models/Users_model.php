@@ -1,12 +1,12 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
- * Home Class
+ * Users_model Class
  *
  * @author marc
  *
  */
-class User_model extends MY_Model
+class Users_model extends MY_Model
 {
 	/**
 	 * Constructor method
@@ -149,16 +149,11 @@ class User_model extends MY_Model
 	function get_table()
 	{
 		$query = 'SELECT
-				SQL_CALC_FOUND_ROWS cuo_id as col0,
-				cuo_nombre as col1,
-				count(clientes.id) as col2,
-				cuo_cuota as col3,
-				cuo_velocidad_subida as col4,
-				cuo_velocidad_bajada as col5
+				SQL_CALC_FOUND_ROWS id as col0,
+				username as col1,
+				email as col2
 		
-				FROM (`cuotas`)
-				
-				LEFT JOIN `clientes` ON `clientes`.`cuotas_id` = `cuotas`.`cuo_id`
+				FROM (`users`)
 				
 				WHERE 1=1 
 				';
@@ -172,13 +167,9 @@ class User_model extends MY_Model
 		
 		// Busqueda
 		if(isset($sSearch) && !empty($sSearch)) {
-			$query .= " AND (cuo_nombre LIKE '%" . $this->db->escape_like_str( $sSearch ) . "%'" .
+			$query .= " AND (username LIKE '%" . $this->db->escape_like_str( $sSearch ) . "%'" .
 				") ";
 		}
-		
-		$query .= '
-				GROUP BY cuo_id 
-		';
 
 		// Ordering
 		if( isset( $iSortCol_0 ) ) {
@@ -196,30 +187,30 @@ class User_model extends MY_Model
 		}
 		
 		// Paging
-		if( $iDisplayStart !== FALSE && $iDisplayLength != '-1' ) {
+		/*if( $iDisplayStart !== FALSE && $iDisplayLength != '-1' ) {
 			$query .= " LIMIT ";
 			$query .= $this->db->escape_str($iDisplayStart);
 			$query .= ", ";
 			$query .= $this->db->escape_str($iDisplayLength);
-		}
+		}*/
 
 		// Select Data
 		$rResult = $this->db->query( $query );
 		
-		if( $this->db->_error_number() ) {
+		/*if( $this->db->_error_number() ) {
 			$this->set_error( $this->db->_error_message() );
 			
 			log_app( $this->db->_error_message() );
-		}
+		}*/
 		
-		log_app($this->db->last_query());
+		//log_app($this->db->last_query());
 
 		// Data set length after filtering
 		$this->db->select('FOUND_ROWS() AS found_rows');
 		$iFilteredTotal = $this->db->get()->row()->found_rows;
 
 		// Total data set length
-		$iTotal = $this->db->get( 'cuotas' )->num_rows();
+		$iTotal = $this->db->get( 'users' )->num_rows();
 
 		// Output
 		$output = array(

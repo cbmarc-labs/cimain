@@ -15,11 +15,11 @@
 				<div class="row">
 					<div class="col-xs-offset-2 col-xs-8">
 						<div class="form-group">
-							<label for="login">Login</label>
+							<label for="login"><?php echo lang( 'login_identity_label' ); ?>:</label>
 							<input autocomplete="off" type="text" class="form-control" name="login" id="login" value="<?php echo $field['login']; ?>" autofocus>
 						</div>
 						<div class="form-group">
-							<label for="password">Password</label>
+							<label for="password"><?php echo lang( 'login_password_label' ); ?>:</label>
 							<input type="password" class="form-control" name="password" id="password" value="<?php echo $field['password']; ?>">
 						</div>
 						
@@ -27,10 +27,10 @@
 				
 						<div class="form-group">
         					<label>
-          						<?php echo form_checkbox( 'remember', $field['remember'], $field['remember'] == 1 ? TRUE : FALSE ); ?> Remember me
+          						<?php echo form_checkbox( 'remember', $field['remember'], $field['remember'] == 1 ? TRUE : FALSE ); ?><?php echo lang( 'login_remember_label' ); ?>
         					</label>
 							<button class="btn btn-primary pull-right" type="submit">
-								<i class="glyphicon glyphicon-ok"></i>&nbsp;&nbsp;Log in
+								<i class="glyphicon glyphicon-ok"></i>&nbsp;&nbsp;<?php echo lang( 'login_submit_btn' ); ?>
 							</button>
 						</div>
 						

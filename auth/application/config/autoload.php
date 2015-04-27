@@ -60,7 +60,7 @@ $autoload['packages'] = array();
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
 
-$autoload['libraries'] = array( 'ion_auth' );
+$autoload['libraries'] = array();
 
 
 /*
@@ -120,7 +120,7 @@ $autoload['config'] = array( 'app' );
 |
 */
 
-$autoload['language'] = array();
+$autoload['language'] = array( 'auth_lang', 'ion_auth_lang' );
 
 
 /*
