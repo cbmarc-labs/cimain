@@ -34,29 +34,6 @@ class Users_model extends MY_Model
 		return $result->result_array();
 	}
 	
-	// -----------------------------------------------------------------------
-	
-	/**
-	 * insert method
-	 *
-	 * @access public
-	 */
-	function insert( $data )
-	{
-		// Insert
-		$this->db->insert( 'my_table', $data );
-		
-		log_message( 'debug', $this->db->last_query() );
-		
-		if( $this->db->affected_rows() != 1 ) {
-			$this->set_error( $this->db->_error_message() );
-			
-			return FALSE;
-		}
-		
-		return TRUE;
-	}
-	
 	// --------------------------------------------------------------------
 	
 	/**
@@ -121,17 +98,11 @@ class Users_model extends MY_Model
 	 * @access public
 	 */
 	function get_by_id( $id )
-	{		
-		$this->db->where( 'id', $id );
-		
-		$query = $this->db->get( 'my_table' );
+	{
+		$user = $this->ion_auth->user( $id )->row_array();
 				
-		log_app( $this->db->last_query() );
-		
-		if ( $query->num_rows() > 0 ) {
-			$data = $query->row_array();
-			
-			return $data;
+		if( $user['id'] ) {
+			return $user;
 		}
 		
 		return FALSE;
