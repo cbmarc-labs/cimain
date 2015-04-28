@@ -1,13 +1,7 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
- * Message Helpers
- *
- * @package		CodeIgniter
- * @subpackage	Helpers
- * @category	Helpers
- * @author		ExpressionEngine Dev Team
- * @link		http://codeigniter.com/user_guide/helpers/xml_helper.html
+ * Alert Helpers
  */
 
 // ------------------------------------------------------------------------
@@ -15,48 +9,45 @@
 if ( ! function_exists( 'set_success' ) ) {
 	function set_success( $message, $flash = FALSE ) {
 		$CI =& get_instance();
-		$CI->load->library( array( 'message' ) );
+		$CI->load->library( array( 'alert' ) );
 		
-		$CI->message->set_message( 'success', $message, $flash );
+		$CI->alert->set( 'success', $message, $flash );
 	}
 }
 
 if ( ! function_exists( 'set_info' ) ) {
 	function set_info( $message, $flash = FALSE ) {
 		$CI =& get_instance();
-		$CI->load->library( array( 'message' ) );
+		$CI->load->library( array( 'alert' ) );
 		
-		$CI->message->set_message( 'info', $message, $flash );
+		$CI->alert->set( 'info', $message, $flash );
 	}
 }
 
 if ( ! function_exists( 'set_warning' ) ) {
 	function set_warning( $message, $flash = FALSE ) {
 		$CI =& get_instance();
-		$CI->load->library( array( 'message' ) );
+		$CI->load->library( array( 'alert' ) );
 		
-		$CI->message->set_message( 'warning', $message, $flash );
+		$CI->alert->set( 'warning', $message, $flash );
 	}
 }
 
 if ( ! function_exists( 'set_error' ) ) {
 	function set_error( $message, $flash = FALSE ) {
 		$CI =& get_instance();
-		$CI->load->library( array( 'message' ) );
+		$CI->load->library( array( 'alert' ) );
 		
-		$CI->message->set_message( 'error', $message, $flash );
+		$CI->alert->set( 'danger', $message, $flash );
 	}
 }
 
-if ( ! function_exists( 'get_message' ) ) {
-	function get_message() {
+if ( ! function_exists( 'get_alert' ) ) {
+	function get_alert() {
 		$CI =& get_instance();
-		$CI->load->library( array( 'message' ) );
+		$CI->load->library( array( 'alert' ) );
 		
-		return array(
-				'type'		=> $CI->message->get_type(), 
-				'message'	=> $CI->message->get_message()
-		);
+		return $CI->alert->get();
 	}
 }
 

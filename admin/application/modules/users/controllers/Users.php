@@ -66,7 +66,7 @@ class Users extends MY_Controller
 			if( $this->form_validation->run() ) {
 				$data = $this->_get_form_values();
 				
-				$this->load->library( array( 'ion_auth' ) );
+				/*$this->load->library( array( 'ion_auth' ) );
 				
 				$users_id = $this->ion_auth->register(
 					$data['username'],
@@ -74,7 +74,9 @@ class Users extends MY_Controller
 					'test@test.com'
 				);
 				
-				print_r($users_id);die;
+				print_r($users_id);die;*/
+				
+				set_success( 'Registro guardado correctamente.' );
 
 				/*if( $this->users_model->insert( $data ) === TRUE ) {
 					set_success( 'Registro guardado correctamente.', TRUE );
