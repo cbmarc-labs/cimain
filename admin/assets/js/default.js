@@ -2,6 +2,10 @@ $(document).ready(function() {
 	
 	$('.tip').tooltip();
 	
+	$("html").click(function(e) {
+		$('.app-alert').hide();
+	});
+	
 });
 
 $.fn.dataTableInit = function (params) {
@@ -69,3 +73,59 @@ $.fn.dataTableInit = function (params) {
 		
 	return this;
 };
+
+;(function($) {
+    
+    'use strict';
+    
+    $.appAlert = function(element, options) {
+    
+    	// Establish our default settings
+        var settings = $.extend({
+        }, options );
+        
+        var plugin = this;
+        
+        var $element = $(element);
+        
+        /**
+         *  Constructor method. Initializes the plugin.
+         *
+         *  @return void
+         */
+        var init = function() {
+        };
+        
+        //--------------------------------------------------------------------
+        
+        /**
+	     * show method
+         *
+         * @return void
+	     */        
+        var show = function() {
+        	alert("SI");
+        };
+        
+        // initialize the plugin
+        init();
+    };
+    
+    $.appAlert.show = function() {
+    	$('.app-alert').hide();
+    	$('.app-alert').show();
+    }
+    
+    $.fn.appAlert = function(options) {
+        
+        // Iterate through all the elements to which we need to attach
+        return this.each(function(i, el) {
+            
+            // Create an instance of the plugin
+            var plugin = new $.appAlert(this, options);
+            
+        });
+        
+    }
+
+}( jQuery ));
