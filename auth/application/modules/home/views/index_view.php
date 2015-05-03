@@ -12,6 +12,12 @@
 					<h3><?php echo $this->config->item('title'); ?></h3>
 				</div>
 				
+				<?php if( $this->ion_auth->errors() ) : ?>
+				<div class="alert alert-danger">			
+					<?php echo $this->ion_auth->errors(); ?>				
+				</div>
+				<?php endif; ?>
+				
 				<div class="row">
 					<div class="col-xs-offset-2 col-xs-8">
 						<div class="form-group">
