@@ -82,6 +82,8 @@ $.fn.dataTableInit = function (params) {
     
     	// Establish our default settings
         var settings = $.extend({
+			type: "success",
+			message: "Success message."
         }, options );
         
         var plugin = this;
@@ -94,6 +96,7 @@ $.fn.dataTableInit = function (params) {
          *  @return void
          */
         var init = function() {
+			console.log("appalert.init / " + settings.type + " / " + settings.message);
         };
         
         //--------------------------------------------------------------------
@@ -103,18 +106,18 @@ $.fn.dataTableInit = function (params) {
          *
          * @return void
 	     */        
-        var show = function() {
-        	alert("SI");
+        plugin.show = function() {
+        	console.log("plugin.show");
         };
         
         // initialize the plugin
         init();
     };
     
-    $.appAlert.show = function() {
+    /*$.appAlert.show = function() {
     	$('.app-alert').hide();
     	$('.app-alert').show();
-    }
+    }*/
     
     $.fn.appAlert = function(options) {
         
