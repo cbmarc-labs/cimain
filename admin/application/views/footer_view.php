@@ -8,7 +8,5 @@
 	<p>@ <?php echo $this->config->item( 'title' ); ?> v1.0.0 2015</p>
 </footer>
 
-<?php echo $this->load->view( 'alert_view' ); ?>
-
 </body>
 </html>
