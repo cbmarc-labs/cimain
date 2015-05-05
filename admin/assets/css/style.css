@@ -48,7 +48,7 @@ table.dataTable tbody tr {
 .app-alert {
 	position: fixed;
     top: 25px;
-	z-index: 9999;
+	z-index: 99999;
 	right: 0;
     left: 0;
 }

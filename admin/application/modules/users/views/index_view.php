@@ -27,7 +27,7 @@
 <div class="row" style="margin-bottom: 10px;">
 	<div class="col-xs-2">
 		<!-- <a href="<?php echo site_url( 'users/add' ); ?>" class="btn btn-primary"> -->
-		<a href='javascript:$.appAlert.show();' class="btn btn-primary">
+		<a href="javascript:$('.app-alert').appAlert('success', 'This is a success message.');" class="btn btn-primary">
 			<span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;<?php echo lang( 'add' ); ?>
 		</a>
 	</div>

@@ -2,9 +2,13 @@ $(document).ready(function() {
 	
 	$('.tip').tooltip();
 	
-	$("html").click(function(e) {
+	/*$("html").click(function(e) {
 		$('.app-alert').hide();
-	});
+	});*/
+	
+	$('.app-alert').appAlert();
+	
+	$('.app-alert').appAlert('danger', 'This is a danger message.');
 	
 });
 
@@ -78,7 +82,7 @@ $.fn.dataTableInit = function (params) {
     
     'use strict';
     
-    $.appAlert = function(element, options) {
+    $.appAlert1 = function(element, options) {
     
     	// Establish our default settings
         var settings = $.extend({
@@ -119,13 +123,13 @@ $.fn.dataTableInit = function (params) {
     	$('.app-alert').show();
     }*/
     
-    $.fn.appAlert = function(options) {
+    $.fn.appAlert1 = function(options) {
         
         // Iterate through all the elements to which we need to attach
         return this.each(function(i, el) {
             
             // Create an instance of the plugin
-            var plugin = new $.appAlert(this, options);
+            var plugin = new $.appAlert1(this, options);
             
         });
         

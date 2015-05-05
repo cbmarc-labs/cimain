@@ -4,7 +4,7 @@
 			<div class="alert alert-success clearfix" role="alert">
 			
 				<div class="glyphicon glyphicon-ok" style="float:left;width:9%;">&nbsp;</div>
-				<div style="float:left;width:89%;"></div>
+				<div style="float:left;width:89%;" class="message"></div>
 				
 			</div>
 		</div>

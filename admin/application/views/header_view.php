@@ -16,6 +16,7 @@
 	<script type="text/javascript" src="<?php echo base_url( '../assets/lib/bootstrap-3.3.4/js/bootstrap.min.js' ); ?>"></script>
 	<script type="text/javascript" src="<?php echo base_url( 'assets/lib/DataTables-1.10.6/media/js/jquery.dataTables.min.js' ); ?>"></script>
 	<script type="text/javascript" src="<?php echo base_url( 'assets/js/dataTables.bootstrap.js' ); ?>"></script>
+	<script type="text/javascript" src="<?php echo base_url( 'assets/js/jquery.app-alert.js' ); ?>"></script>
 	<script type="text/javascript" src="<?php echo base_url( 'assets/js/default.js' ); ?>"></script>
 	
 	<link rel="shortcut icon" href="<?php echo base_url( 'favicon.ico' ); ?>">
