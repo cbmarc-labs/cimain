@@ -6,10 +6,6 @@ $(document).ready(function() {
 		$('.app-alert').hide();
 	});*/
 	
-	$('.app-alert').appAlert();
-	
-	$('.app-alert').appAlert('danger', 'This is a danger message.');
-	
 });
 
 $.fn.dataTableInit = function (params) {
@@ -45,6 +41,7 @@ $.fn.dataTableInit = function (params) {
 		"bServerSide": true,
 		"bStateSave": true,
 		"sPaginationType": "full",
+		"bAutoWidth" : false,
 		"fnInitComplete": function() {
 			var table = this;
 			
@@ -77,62 +74,3 @@ $.fn.dataTableInit = function (params) {
 		
 	return this;
 };
-
-;(function($) {
-    
-    'use strict';
-    
-    $.appAlert1 = function(element, options) {
-    
-    	// Establish our default settings
-        var settings = $.extend({
-			type: "success",
-			message: "Success message."
-        }, options );
-        
-        var plugin = this;
-        
-        var $element = $(element);
-        
-        /**
-         *  Constructor method. Initializes the plugin.
-         *
-         *  @return void
-         */
-        var init = function() {
-			console.log("appalert.init / " + settings.type + " / " + settings.message);
-        };
-        
-        //--------------------------------------------------------------------
-        
-        /**
-	     * show method
-         *
-         * @return void
-	     */        
-        plugin.show = function() {
-        	console.log("plugin.show");
-        };
-        
-        // initialize the plugin
-        init();
-    };
-    
-    /*$.appAlert.show = function() {
-    	$('.app-alert').hide();
-    	$('.app-alert').show();
-    }*/
-    
-    $.fn.appAlert1 = function(options) {
-        
-        // Iterate through all the elements to which we need to attach
-        return this.each(function(i, el) {
-            
-            // Create an instance of the plugin
-            var plugin = new $.appAlert1(this, options);
-            
-        });
-        
-    }
-
-}( jQuery ));
