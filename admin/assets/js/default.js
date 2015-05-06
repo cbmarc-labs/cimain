@@ -2,10 +2,6 @@ $(document).ready(function() {
 	
 	$('.tip').tooltip();
 	
-	/*$("html").click(function(e) {
-		$('.app-alert').hide();
-	});*/
-	
 });
 
 $.fn.dataTableInit = function (params) {

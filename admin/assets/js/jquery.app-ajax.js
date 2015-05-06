@@ -1,25 +1,42 @@
 (function ($) {
 	
-    $.appAjax = function (options) {
+    $.appAjax = function (url) {
 
-        var defaults = {
-            },
+        var defaults = {},
             plugin = this,
-            options = options || {};
+            options = {}; //options || {};
 
 
-        plugin.init = function () {
+        plugin.init = function (url) {
             var settings = $.extend({}, defaults, options);
             $.data(document, 'appAjax', settings);
 			
-			plugin.ajax();
+			plugin.doAjax(url);
 		}
 		
-		plugin.ajax = function () {
-			console.log("Doing ajax");
+		plugin.doAjax = function (url) {
+			console.log("plugin.ajax");
+			$.ajax({
+				'dataType':'json',
+				'type':'GET',
+				'url':url,
+				'success':function(json) {
+					if(json.error == 10) {
+						location.reload();
+					}
+					
+					alert(json);
+				},
+				'error': function(xhr, status, error) {
+					var err = eval("(" + xhr.responseText + ")");
+					console.log(err.Message);
+		            	
+					$.appAlert("error", err.Message);
+				}
+			});
         }
 
-        plugin.init();
+        plugin.init(url);
 
     }
 

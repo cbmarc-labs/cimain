@@ -14,6 +14,9 @@ class Alert
 	private $_type;
 	private $_message;
 
+	/**
+	 * Constructor method
+	 */
 	function __construct()
 	{
 		$this->_CI =& get_instance();
@@ -21,6 +24,13 @@ class Alert
 		$this->_CI->load->library( array( 'session' ) );
 	}
 	
+	// -----------------------------------------------------------------------
+	
+	/**
+	 * set method
+	 *
+	 * @access public
+	 */
 	function set( $type, $message, $flash = FALSE )
 	{
 		if($flash) {
@@ -32,6 +42,13 @@ class Alert
 		$this->_message = $message;
 	}
 	
+	// -----------------------------------------------------------------------
+	
+	/**
+	 * get method
+	 *
+	 * @access public
+	 */
 	function get()
 	{
 		if( $this->_CI->session->flashdata( 'type' ) ) {

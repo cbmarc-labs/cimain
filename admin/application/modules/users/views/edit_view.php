@@ -59,7 +59,7 @@
 					</button>
 				</div>
 				<div class="form-group">
-					<a class="btn btn-default" href="javascript:$.appAlert.show();">
+					<a class="btn btn-default" href="<?php echo site_url( $this->router->fetch_class() ); ?>">
 						<span class="glyphicon glyphicon-chevron-left"></span>&nbsp;<?php echo lang( 'form_button_back' ); ?>
 					</a>
 				</div>

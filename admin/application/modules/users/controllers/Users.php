@@ -50,6 +50,22 @@ class Users extends MY_Controller
 	// --------------------------------------------------------------------
 
 	/**
+	 * get_table method
+	 *
+	 * @access public
+	 */
+	public function test_ajax()
+	{
+		$result = array("uno"=>1,"dos"=>2);
+	
+		$this->output
+			->set_content_type( 'application/json' )
+			->set_output( json_encode( $result ) );
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
 	 * Add method
 	 *
 	 * @access public
