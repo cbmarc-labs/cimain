@@ -1,48 +1,34 @@
 (function ($) {
-	
-    $.appAjax = function (url) {
 
-        var defaults = {},
-            plugin = this,
-            options = {}; //options || {};
-
-
-        plugin.init = function (url) {
-            var settings = $.extend({}, defaults, options);
-            $.data(document, 'appAjax', settings);
-			
-			plugin.doAjax(url);
-		}
+	$.appAjax = function (url, params) {
 		
-		plugin.doAjax = function (url) {
-			console.log("plugin.ajax");
-			$.ajax({
-				'dataType':'json',
-				'type':'GET',
-				'url':url,
-				'success':function(json) {
-					if(json.error == 10) {
-						location.reload();
-					}
-					
-					alert(json);
-				},
-				'error': function(xhr, status, error) {
-					var err = eval("(" + xhr.responseText + ")");
-					console.log(err.Message);
-		            	
-					$.appAlert("error", err.Message);
+		$.ajax($.extend({}, {
+			dataType:'json',
+			type:'GET',
+			url:url,
+			success: function(json) {				
+				// session expired
+				if(json.error == 10) {
+					location.reload();
 				}
-			});
-        }
-
-        plugin.init(url);
-
-    }
-
-    $.appAjax.init = function (callback) {
-        console.log($.data(document, 'appAjax'));
-        callback();
-    }
+				
+				if (typeof params.appSuccess == 'function') { 
+					params.appSuccess(json);
+				}
+			},
+			complete: function() {
+			},
+			error: function (xhr, textStatus, errorThrown) {
+				errorMsg = url+': Not json response.';
+				if(xhr.status==404) {
+					errorMsg = url+': '+xhr.status+' '+xhr.statusText;
+				}
+				
+				$.appAlert("error", errorMsg);
+			}
+		}, params));
+		
+		return this;
+	};
 
 }(jQuery));

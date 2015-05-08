@@ -27,7 +27,7 @@
 <div class="row" style="margin-bottom: 10px;">
 	<div class="col-xs-2">
 		<!-- <a href="<?php echo site_url( 'users/add' ); ?>" class="btn btn-primary"> -->
-		<a href="javascript:$.appAjax('<?php echo site_url( 'users/test_1ajax' ); ?>');" class="btn btn-primary">
+		<a href="javascript:$.appAjax('<?php echo site_url( 'users/tes1t_ajax' ); ?>');" class="btn btn-primary">
 			<span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;<?php echo lang( 'add' ); ?>
 		</a>
 	</div>

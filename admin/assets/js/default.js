@@ -38,6 +38,14 @@ $.fn.dataTableInit = function (params) {
 		"bStateSave": true,
 		"sPaginationType": "full",
 		"bAutoWidth" : false,
+		"fnServerData": function ( sSource, aoData, fnCallback ) {
+			$.appAjax(sSource, {
+				data:aoData,
+				appSuccess: function(json) {
+					fnCallback(json);
+				}
+			});
+		},
 		"fnInitComplete": function() {
 			var table = this;
 			
