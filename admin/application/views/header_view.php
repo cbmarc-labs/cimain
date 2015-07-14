@@ -10,6 +10,7 @@
 	<title><?php echo $this->config->item('title'); ?></title>
 		
 	<?php echo link_tag( '../assets/lib/bootstrap-3.3.4/css/bootstrap.min.css' ); ?>
+	<?php echo link_tag( 'assets/lib/bootstrap-table/dist/bootstrap-table.min.css' ); ?>
 	<?php echo link_tag( 'assets/css/style.css' ); ?>
 	
 	<script type="text/javascript" src="<?php echo base_url( '../assets/lib/jquery-2.1.3/jquery-2.1.3.min.js' ); ?>"></script>
@@ -19,6 +20,7 @@
 	<script type="text/javascript" src="<?php echo base_url( 'assets/js/dataTables.bootstrap.js' ); ?>"></script>
 	<script type="text/javascript" src="<?php echo base_url( 'assets/js/jquery.app-alert.js' ); ?>"></script>
 	<script type="text/javascript" src="<?php echo base_url( 'assets/js/jquery.app-ajax.js' ); ?>"></script>
+	<script type="text/javascript" src="<?php echo base_url( 'assets/lib/bootstrap-table/dist/bootstrap-table.min.js' ); ?>"></script>
 	<script type="text/javascript" src="<?php echo base_url( 'assets/js/default.js' ); ?>"></script>
 	
 	<link rel="shortcut icon" href="<?php echo base_url( 'favicon.ico' ); ?>">

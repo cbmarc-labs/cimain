@@ -12,8 +12,8 @@
 					location.reload();
 				}
 				
-				if (typeof params.appSuccess == 'function') { 
-					params.appSuccess(json);
+				if (typeof params.success == 'function') { 
+					params.success(json);
 				}
 			},
 			complete: function() {

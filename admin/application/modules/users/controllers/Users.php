@@ -46,6 +46,39 @@ class Users extends MY_Controller
 			->set_content_type( 'application/json' )
 			->set_output( json_encode( $result ) );
 	}
+	
+	// --------------------------------------------------------------------
+	
+	/**
+	 * get_table method
+	 *
+	 * @access public
+	 */
+	public function get_table1()
+	{
+		$rows = array(
+				array( "id" => 0, "texto" => "uno", "numero" => 6 ),
+				array( "id" => 0, "texto" => "uno", "numero" => 6 ),
+				array( "id" => 0, "texto" => "uno", "numero" => 6 ),
+				array( "id" => 0, "texto" => "uno", "numero" => 6 ),
+				array( "id" => 0, "texto" => "uno", "numero" => 6 ),
+				array( "id" => 0, "texto" => "uno", "numero" => 6 ),
+				array( "id" => 0, "texto" => "uno", "numero" => 6 ),
+				array( "id" => 0, "texto" => "uno", "numero" => 6 ),
+				array( "id" => 0, "texto" => "uno", "numero" => 6 ),
+				array( "id" => 0, "texto" => "uno", "numero" => 6 )
+		);
+		
+		$result = array(
+				"total" => 800,
+				"rows" => $rows
+					
+		);
+			
+		$this->output
+			->set_content_type( 'application/json' )
+			->set_output( json_encode( $result ) );
+	}
 
 	// --------------------------------------------------------------------
 

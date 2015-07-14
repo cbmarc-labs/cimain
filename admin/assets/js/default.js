@@ -41,7 +41,7 @@ $.fn.dataTableInit = function (params) {
 		"fnServerData": function ( sSource, aoData, fnCallback ) {
 			$.appAjax(sSource, {
 				data:aoData,
-				appSuccess: function(json) {
+				success: function(json) {
 					fnCallback(json);
 				}
 			});

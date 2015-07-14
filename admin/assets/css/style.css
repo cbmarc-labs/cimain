@@ -8,43 +8,6 @@ body {
 	box-shadow: 0 6px 12px rgba(0,0,0,0.175);
 }
 
-table.table thead .sorting { background: url('../img/sort_both.png') no-repeat center right; }
-table.table thead .sorting_asc { background: url('../img/sort_asc.png') no-repeat center right; }
-table.table thead .sorting_desc { background: url('../img/sort_desc.png') no-repeat center right; }
-
-table.table thead .sorting_asc_disabled { background: url('../img/sort_asc_disabled.png') no-repeat center right; }
-table.table thead .sorting_desc_disabled { background: url('../img/sort_desc_disabled.png') no-repeat center right; }
-
-table.table thead .sorting,
-table.table thead .sorting_asc,
-table.table thead .sorting_desc,
-table.table thead .sorting_asc_disabled,
-table.table thead .sorting_desc_disabled {
-	cursor: pointer;
-	*cursor: hand;
-}
-
-table.table thead .sorting_asc {
-	background-color: #ff8;
-}
-
-table.table thead .sorting_desc {
-	background-color: #ff8;
-}
-
-table.dataTable tbody tr {
-	cursor: pointer;
-	*cursor: hand;
-}
-
-.table-hover tbody tr:hover td,.table-hover tbody tr:hover th {
-	background-color: #ff8;
-}
-
-.dataTables_paginate .pagination {
-	margin: 0;
-}
-
 .blink_me_5 {
     -webkit-animation-name: blinker;
     -webkit-animation-duration: 0.2s;
